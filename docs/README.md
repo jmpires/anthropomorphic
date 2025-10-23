@@ -1,6 +1,6 @@
 📖 **Learning Logs**
 
-### 📖 Knowledge & Experience
+### 📋 Knowledge & Experience
 
 AWS
 
@@ -27,7 +27,7 @@ Terraform
 🔗 [Terraform basics: writing configurations, using providers, and managing state.](https://developer.hashicorp.com/terraform/tutorials)
 
 
-### 📖 Tools & Versions
+### 📋 Tools & Versions
 
 AWS
 
