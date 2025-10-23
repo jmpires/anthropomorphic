@@ -46,5 +46,3 @@
 **Terraform**
 
 🔗 [Terraform v1.6 or later](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
-
-
