@@ -8,9 +8,6 @@ Here, you'll find:
 - 📖 **Learning Logs** – Notes, documentation, and insights gained along the way.  
 - 💡 **Projects** – Personal and open-source experiments in cloud, automation, and intelligent systems.
 
-And always: **explanations, not just commands.**  
-Every line of code is crafted to empower engineers to **comprehend**, not just deploy.
-
 This is more than a portfolio ... it’s a philosophy in practice.
 
 
