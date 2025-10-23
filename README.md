@@ -50,7 +50,7 @@ Every script, guide, and diagram here is crafted to empower engineers—not just
 ---
 
 ## 🤝 Connect With Me  
-🔗 [LinkedIn](https://www.linkedin.com/in/jorgemanuelpires/)  |  🐦 [X/Twitter](#)  |  ⚙️ [Portfolio Website](#)  |  ✉️ [Email](mailto:anthropomorphic.email@gmail.com)
+🔗 [LinkedIn](https://www.linkedin.com/in/jorgemanuelpires/)  |  ✉️ [Email](mailto:anthropomorphic.email@gmail.com)
 
 
 Feel free to fork, star ⭐, or contribute to this project.
