@@ -1,7 +1,7 @@
 # 📖 **Learning Logs**
 
 ### 📋 Knowledge & Experience
-#
+
 **AWS**
 
 🔗 [AWS fundamentals: launching EC2 instances, VPCs, IAM roles, and security groups.](https://aws.amazon.com/training/learn-about/cloud-practitioner)
@@ -26,6 +26,7 @@
 
 🔗 [Terraform basics: writing configurations, using providers, and managing state.](https://developer.hashicorp.com/terraform/tutorials)
 
+#
 
 ### 📋 Tools & Versions
 
