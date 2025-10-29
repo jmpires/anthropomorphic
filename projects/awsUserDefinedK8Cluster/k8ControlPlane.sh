@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name: k8WorkerNode.sh
-# Description: This script creates the Control Plane in an AWS instance.
+# Description: This script initializes and configures the control plane on an AWS EC2 instance.
 # OS supported: MacOS, Linux
 # Author: Jorge Manuel Pires
 # Contributors: Jorge Manuel Pires

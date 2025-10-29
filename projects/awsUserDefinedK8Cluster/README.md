@@ -1,52 +1,34 @@
-# Documentation
+# 📘 **AWS User Defined K8 Cluster**
 
-## Accessing the EC2 Instance
-1. Access the instance in a new terminal window and execute:
-ssh -i <filename>.pem ubuntu@<ip-address>
-ssh -i <filename>.pem ec2-user@<ip-address>
+### 📖 Article Link
+Read the full article on Medium: [101 Setting Up a User Defined Kubernetes Cluster on AWS using Ubuntu Server and Terraform](https://medium.com/p/217b14b80239/edit)
 
 
-# Destroy an instance and associated resources
-aws ec2 terminate-instances --instance-ids <instance id>
-
-The Complete Practical Guide to Helm for Kubernetes: From Basics to Production Best Practices
+### 📋 Code Structure
 
 
-# -----------------------
-# Sequence 4 Control Plane/Worker Node(s)
+## **Terraform files**
 
-ssh into ControlPlane
-copy/paste the script <k8Bootstrap.sh>
-sudo vi k8s-control-plane.sh
-sudo chmod +x k8s-control-plane.sh
-sudo ./k8s-control-plane.sh 2>&1 | tee install.log
+```
+main.tf - Declares providers and defines the core infrastructure resources.
 
-into the worker node (for each of them) run:
-sudo apt update
-sudo apt install -y apt-transport-https ca-certificates curl
-curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
-sudo apt update
-sudo apt install -y kubelet kubeadm kubectl
+defaults.auto.tfvars - Automatically supplies default values for variables.
 
-sudo apt update
-sudo apt install -y containerd
-sudo mkdir -p /etc/containerd
-containerd config default | sudo tee /etc/containerd/config.toml
-sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
-sudo systemctl restart containerd
-sudo systemctl enable containerd
-sudo systemctl status containerd  # should be "active (running)"
-ls /var/run/containerd/containerd.sock  # should exist
-echo 'net.ipv4.ip_forward=1' | sudo tee /etc/sysctl.d/99-kubernetes.conf
-sudo sysctl --system
-cat /proc/sys/net/ipv4/ip_forward  # should output "1"
+variables.tf - Specifies input variables to parameterize the configuration.
 
+output.tf - Exposes key details of the deployed infrastructure after apply.
+```
 
-sudo apt-mark hold kubelet kubeadm kubectl
+## **Bash files**
 
+```
+deployNodes.sh – Deploys a Kubernetes node (control plane or worker) on an AWS EC2 instance by remotely executing a specified setup script.
 
-into ControlPlane run the command: kubeadm token create --print-join-command
-paste the result it into worker nodes after previous step, e.g.: 
-+ sudo kubeadm join 172.31.25.18:6443 --token nx05oi.gpxb2sq5qkxn5k6l --discovery-token-ca-cert-hash sha256:c49062c7de51629a8c72ccc8249b0a08d32366eaf898c7ffa97c983608be4b58
+k8ControlPlane.sh - Initializes and configures the control plane on an AWS EC2 instance - designed to be executed remotely via SSH.
+k8WorkerNodes.sh - Initializes and configures the worker node(s) on an AWS EC2 instance - designed to be executed remotely via SSH.
+
+joinWorkers.sh – Automates joining worker node(s) to the Kubernetes control plane across AWS EC2 instances.
+
+showClusterInfo.sh – Displays cluster information derived from Terraform output.
+```
 

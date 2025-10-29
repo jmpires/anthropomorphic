@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name: k8WorkerNode.sh
-# Description: This script creates a worker node(s) in an AWS instance.
+# Description: This script initializes and configures the worker node(s) on an AWS EC2 instance.
 # OS supported: MacOS, Linux
 # Author: Jorge Manuel Pires
 # Contributors: Jorge Manuel Pires

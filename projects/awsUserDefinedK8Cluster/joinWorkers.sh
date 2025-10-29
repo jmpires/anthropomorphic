@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name: joinWorkers.sh
-# Description: This script automates the joining of the worker node(s) to the control plane in an AWS instance.
+# Description: This script automates the joining of worker node(s) to the control plane across AWS EC2 instances.
 # OS supported: MacOS, Linux
 # Author: Jorge Manuel Pires
 # Contributors: Jorge Manuel Pires

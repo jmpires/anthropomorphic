@@ -1,6 +1,6 @@
 #!/bin/bash
 # Script name: deployNodes.sh
-# Description: This script automates the deployment of control plane and worker node(s) in an AWS instance.
+# Description: This script deploys a Kubernetes node (control plane or worker) on an AWS EC2 instance by running a specified setup script remotely.
 # OS supported: MacOS, Linux
 # Author: Jorge Manuel Pires
 # Contributors: Jorge Manuel Pires
