@@ -22,7 +22,7 @@ server.tf - Fetch image & define Jenkins server.
 
 terraform.tfvars - Provide the values that we want to assign to the variables.
 
-variables.tf - variables.tf - Specifies input variables to parameterize the configuration.
+variables.tf - Specifies input variables to parameterize the configuration.
 
 vpc - Define the VPC and a private subnet.
 
