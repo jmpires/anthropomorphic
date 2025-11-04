@@ -10,8 +10,9 @@ pipeline {
         stage("Create an EKS Cluster") {
             steps {
                 script {
-                    dir('terraform') {
+                    dir('projects/deployK8Application/eks') {       # Navigate to the eks directory
                         sh "terraform init"
+                        sh "terraform plan"
                         sh "terraform apply -auto-approve"
                     }
                 }
