@@ -1,3 +1,4 @@
+#vpc.tf
 data "aws_availability_zones" "azs" {}
 
 module "my-vpc" {
