@@ -24,16 +24,19 @@ pipeline {
                 script {
                     dir('projects/deployK8Application/kubernetes') {
                         sh '''
-                            echo "=== Setting up kubeconfig ==="
+                            echo "=== Configuring kubeconfig ==="
                             aws eks update-kubeconfig --name my-eks-cluster --region $AWS_DEFAULT_REGION
 
-                            echo "=== Verifying kubectl and files ==="
-                            kubectl version --client --short
-                            ls -la
-
-                            echo "=== Applying Kubernetes manifests ==="
+                            echo "=== Deploying Nginx ==="
                             kubectl apply -f nginx-deployment.yaml
+
+                            # Delete service if exists (safe: --ignore-not-found)
+                            kubectl delete service nginx --ignore-not-found
+
+                            # Apply service → creates new LB in PUBLIC subnets
                             kubectl apply -f nginx-service.yaml
+
+                            echo "=== Done. LB will be ready in 2-5 minutes ==="
                         '''
                     }
                 }
