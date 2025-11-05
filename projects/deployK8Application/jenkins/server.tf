@@ -18,7 +18,7 @@ resource "aws_instance" "my-server" {
   instance_type               = var.instance_type
   key_name                    = "jenkins-server-demo"
   subnet_id                   = aws_subnet.jenkins-subnet-1.id
-  vpc_security_group_ids      = [aws_security_group.jenkins_sg.id] # ✅ now matches!
+  vpc_security_group_ids      = [aws_security_group.jenkins_sg.id]
   availability_zone           = var.availability_zone
   associate_public_ip_address = true
   #user_data                   = file("jenkins-script.sh")
