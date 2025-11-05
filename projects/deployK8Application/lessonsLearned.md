@@ -82,3 +82,14 @@ kubectl get svc nginx -o wide
 - Branches to build -> Branch Specifier (blank for 'any') -> */main
 - Script Path -> <path_to_Jenkinsfile> e.g.: projects/eks/Jenkinsfile
 
+
+# Troubleshoot access to nginx app
+kubectl get svc nginx       # expected to have a value in EXTERNAL-IP
+curl -v http://af5422b9b0ca843da81c02aa347dfee8-1191466311.us-east-1.elb.amazonaws.com      # run it inside the ec2 jenkins instance (expected result: 200 OK)
+
++ if else ...
+nslookup af5422b9b0ca843da81c02aa347dfee8-1191466311.us-east-1.elb.amazonaws.com
+curl -m 10 http://af5422b9b0ca843da81c02aa347dfee8-1191466311.us-east-1.elb.amazonaws.com
+
++ Do NOT USE https (unless defined in the nginx deployment. Use http)
+http://<alb_address>
