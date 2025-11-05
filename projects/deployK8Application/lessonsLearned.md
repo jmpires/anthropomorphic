@@ -75,9 +75,10 @@ kubectl get svc nginx -o wide
 
 
 # GitHub Pipeline configuration
-+ Pipeline -> Pipeline script from SCM
++ Pipeline -> Definition -> Pipeline script from SCM
 + SCM -> Git
-+ Repositories -> Repository URL -> https://github.com/jmpires/anthropomorphic.git
-+ Credentials -> jmpires/******
-+ Branches to build -> Branch Specifier (blank for 'any') -> */main
+- Repositories -> Repository URL -> https://github.com/jmpires/anthropomorphic.git
+- Credentials -> jmpires/******
+- Branches to build -> Branch Specifier (blank for 'any') -> */main
+- Script Path -> <path_to_Jenkinsfile> e.g.: projects/eks/Jenkinsfile
 
