@@ -5,6 +5,7 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION    = "us-east-1"
+        KUBECONFIG            = "${WORKSPACE}/kubeconfig"  // isolate kubeconfig
     }
     stages {
         stage("Create an EKS Cluster") {
@@ -24,16 +25,24 @@ pipeline {
                 script {
                     dir('projects/deployK8Application/kubernetes') {
                         sh '''
-                            echo "=== Configuring kubeconfig ==="
-                            aws eks update-kubeconfig --name my-eks-cluster --region $AWS_DEFAULT_REGION
+                            echo "=== Checking tool versions ==="
+                            aws --version
+                            kubectl version --client --short
+
+                            echo "=== Configuring kubeconfig to ${KUBECONFIG} ==="
+                            # This requires AWS CLI v2.7.0+ for v1beta1/v1 support
+                            aws eks update-kubeconfig \
+                                --name my-eks-cluster \
+                                --region $AWS_DEFAULT_REGION \
+                                --kubeconfig $KUBECONFIG
+
+                            echo "=== Verifying kubeconfig exec apiVersion ==="
+                            grep -A5 "exec:" $KUBECONFIG
 
                             echo "=== Deploying Nginx ==="
                             kubectl apply -f nginx-deployment.yaml
 
-                            # Delete service if exists (safe: --ignore-not-found)
                             kubectl delete service nginx --ignore-not-found
-
-                            # Apply service → creates new LB in PUBLIC subnets
                             kubectl apply -f nginx-service.yaml
 
                             echo "=== Done. LB will be ready in 2-5 minutes ==="
