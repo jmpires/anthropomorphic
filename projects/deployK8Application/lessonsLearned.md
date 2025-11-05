@@ -74,17 +74,10 @@ curl -I http://<new-dns-name>
 kubectl get svc nginx -o wide
 
 
-+ 
-- Pipeline
-Pipeline script from SCM
-- SCM
-Git
-- Repositories
-  - Repository URL
-https://github.com/jmpires/anthropomorphic.git
-- Credentials
-jmpires/******
-- Branches to build
-  - Branch Specifier (blank for 'any')
-*/main
+# GitHub Pipeline configuration
++ Pipeline -> Pipeline script from SCM
++ SCM -> Git
++ Repositories -> Repository URL -> https://github.com/jmpires/anthropomorphic.git
++ Credentials -> jmpires/******
++ Branches to build -> Branch Specifier (blank for 'any') -> */main
 
