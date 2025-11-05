@@ -12,6 +12,8 @@ N/A
 ```
 backend.tf - Terraform backend to store state file in an S3 bucket.
 
+outputs.tf - Exposes key details of the deployed infrastructure after apply.
+
 provider.tf - Defines AWS provider and region.
 
 route.tf - Define an Internet Gateway and the default route table for our VPC.
@@ -25,8 +27,6 @@ terraform.tfvars - Provide the values that we want to assign to the variables.
 variables.tf - Specifies input variables to parameterize the configuration.
 
 vpc - Define the VPC and a private subnet.
-
-outputs.tf - Exposes key details of the deployed infrastructure after apply.
 ```
 
 ## **Bash files**

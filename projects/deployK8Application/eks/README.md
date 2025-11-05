@@ -12,13 +12,15 @@ N/A
 ```
 backend.tf - Terraform backend to store state file in an S3 bucket.
 
-eks - Defines the structure of the EKS cluster
+eks - Defines the structure of the EKS cluster.
+
+outputs.tf - Exposes key details of the deployed infrastructure after apply.
 
 terraform.tfvars - Provide the values that we want to assign to the variables.
 
 variables.tf - Specifies input variables to parameterize the configuration.
 
-versions.tf - Defines terraform and provider version's
+versions.tf - Defines terraform and provider version's.
 
 vpc - Define the VPC and a private subnet.
 ```
