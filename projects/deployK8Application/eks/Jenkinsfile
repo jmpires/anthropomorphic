@@ -5,7 +5,7 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION    = "us-east-1"
-        KUBECONFIG            = "${WORKSPACE}/kubeconfig"  // isolate kubeconfig
+        KUBECONFIG            = "${WORKSPACE}/kubeconfig"
     }
     stages {
         stage("Create an EKS Cluster") {
@@ -27,10 +27,9 @@ pipeline {
                         sh '''
                             echo "=== Checking tool versions ==="
                             aws --version
-                            kubectl version --client --short
+                            kubectl version --client
 
                             echo "=== Configuring kubeconfig to ${KUBECONFIG} ==="
-                            # This requires AWS CLI v2.7.0+ for v1beta1/v1 support
                             aws eks update-kubeconfig \
                                 --name my-eks-cluster \
                                 --region $AWS_DEFAULT_REGION \
