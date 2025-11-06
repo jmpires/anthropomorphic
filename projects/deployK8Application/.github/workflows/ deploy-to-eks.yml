@@ -1,0 +1,67 @@
+name: Deploy to EKS
+
+#on:
+#  push:
+#    branches: [ main, master ]
+#  pull_request:
+#    branches: [ main, master ]
+
+env:
+  AWS_DEFAULT_REGION: us-east-1
+  KUBECONFIG: ${{ github.workspace }}/kubeconfig
+
+jobs:
+  deploy-to-eks:
+    runs-on: ubuntu-latest  # This is what GitHub provides
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: latest
+
+    - name: Setup kubectl
+      uses: azure/setup-kubectl@v4
+      with:
+        version: latest
+
+    - name: Create EKS Cluster
+      working-directory: ./projects/deployK8Application/eks
+      run: |
+        terraform init
+        terraform plan
+        terraform apply -auto-approve
+
+    - name: Deploy to EKS
+      working-directory: ./projects/deployK8Application/kubernetes
+      run: |
+        echo "=== Checking tool versions ==="
+        aws --version
+        kubectl version --client
+
+        echo "=== Configuring kubeconfig to $KUBECONFIG ==="
+        aws eks update-kubeconfig \
+            --name jenkins-eks-cluster \
+            --region ${{ env.AWS_DEFAULT_REGION }} \
+            --kubeconfig $KUBECONFIG
+
+        echo "=== Verifying kubeconfig exec apiVersion ==="
+        grep -A5 "exec:" $KUBECONFIG
+
+        echo "=== Deploying Nginx ==="
+        kubectl apply -f nginx-deployment.yaml
+
+        kubectl delete service nginx --ignore-not-found
+        kubectl apply -f nginx-service.yaml
+
+        echo "=== Done. LB will be ready in 2-5 minutes ==="
