@@ -87,7 +87,7 @@ kubectl get svc nginx -o wide
 - Repositories -> Repository URL -> https://github.com/jmpires/anthropomorphic.git
 - Credentials -> jmpires/******
 - Branches to build -> Branch Specifier (blank for 'any') -> */main
-- Script Path -> <path_to_Jenkinsfile> e.g.: projects/eks/deployK8Application/Jenkinsfile
+- Script Path -> <path_to_Jenkinsfile> e.g.: projects/deployK8Application/eks/Jenkinsfile
 
 
 # Troubleshoot access to nginx app
