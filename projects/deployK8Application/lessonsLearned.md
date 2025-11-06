@@ -5,7 +5,7 @@ ssh -i jenkins-server-demo.pem ec2-user@54.157.55.223 'sudo systemctl status jen
 ssh -i jenkins-server-demo.pem ec2-user@54.157.55.223 'sudo systemctl is-active jenkins'
 
 
-https://plugins.jenkins.io/pipeline-stage-view              # Pipeline Stage View Plugin
+https://plugins.jenkins.io/pipeline-stage-view              # Pipeline <Stage View> Plugin
 
 
 aws sts get-caller-identity
