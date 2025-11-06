@@ -12,7 +12,7 @@ N/A
 ```
 backend.tf - Terraform backend to store state file in an S3 bucket.
 
-outputs.tf - Exposes key details of the deployed infrastructure after apply.
+output.tf - Exposes key details of the deployed infrastructure after apply.
 
 provider.tf - Defines AWS provider and region.
 

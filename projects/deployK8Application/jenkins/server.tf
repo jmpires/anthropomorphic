@@ -22,6 +22,7 @@ resource "aws_instance" "my-server" {
   availability_zone           = var.availability_zone
   associate_public_ip_address = true
   user_data                   = file("jenkins-script.sh")
+  #user_data = file("jenkins-setup.sh")
   tags = {
     Name = "${var.env_prefix}-server"
   }

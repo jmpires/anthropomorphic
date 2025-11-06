@@ -1,8 +1,8 @@
-ssh -i jenkins-server-demo.pem ec2-user@54.157.55.223 'sudo cat /var/lib/jenkins/secrets/initialAdminPassword' 
+ssh -i jenkins-server.pem ec2-user@54.157.55.223 'sudo cat /var/lib/jenkins/secrets/initialAdminPassword' 
 
 
-ssh -i jenkins-server-demo.pem ec2-user@54.157.55.223 'sudo systemctl status jenkins'
-ssh -i jenkins-server-demo.pem ec2-user@54.157.55.223 'sudo systemctl is-active jenkins'
+ssh -i jenkins-server.pem ec2-user@54.157.55.223 'sudo systemctl status jenkins'
+ssh -i jenkins-server.pem ec2-user@54.157.55.223 'sudo systemctl is-active jenkins'
 
 
 https://plugins.jenkins.io/pipeline-stage-view              # Pipeline <Stage View> Plugin
@@ -74,13 +74,20 @@ curl -I http://<new-dns-name>
 kubectl get svc nginx -o wide
 
 
+# GitHub Repo Credentials
++ Manage Jenkins -> Credentials -> System -> Global credentials (unrestricted)
++ Kind -> Username with password
++ Scope -> Global ... + Username + Password
+
+
 # GitHub Pipeline configuration
++ New Item -> jenkins-server -> Pipeline -> OK
 + Pipeline -> Definition -> Pipeline script from SCM
 + SCM -> Git
 - Repositories -> Repository URL -> https://github.com/jmpires/anthropomorphic.git
 - Credentials -> jmpires/******
 - Branches to build -> Branch Specifier (blank for 'any') -> */main
-- Script Path -> <path_to_Jenkinsfile> e.g.: projects/eks/Jenkinsfile
+- Script Path -> <path_to_Jenkinsfile> e.g.: projects/eks/deployK8Application/Jenkinsfile
 
 
 # Troubleshoot access to nginx app
