@@ -31,7 +31,7 @@ pipeline {
 
                             echo "=== Configuring kubeconfig to ${KUBECONFIG} ==="
                             aws eks update-kubeconfig \
-                                --name my-eks-cluster \
+                                --name jenkins-eks-cluster \
                                 --region $AWS_DEFAULT_REGION \
                                 --kubeconfig $KUBECONFIG
 
