@@ -2,111 +2,32 @@
 pipeline {
     agent any
     environment {
-        // Set AWS credentials for Terraform and general use
-        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        AWS_DEFAULT_REGION    = "us-east-1"
-        // Define a temporary profile name for kubectl's use later
-        KUBECTL_AWS_PROFILE   = "jenkins_pipeline_kubectl_profile"
-        KUBECONFIG            = "${WORKSPACE}/kubeconfig"
+        AWS_DEFAULT_REGION = "us-east-1"
     }
     stages {
-        stage("Prepare AWS Profile for kubectl") {
-            steps {
-                script {
-                    dir('projects/deployK8Application/eks') { // Or a common dir if needed
-                        sh '''
-                            echo "=== Preparing temporary AWS profile for kubectl ==="
-                            # Configure a temporary AWS profile using the environment variables
-                            # This profile will be used by kubectl, not Terraform
-                            mkdir -p ~/.aws
-                            cat > ~/.aws/credentials << EOF
-[$KUBECTL_AWS_PROFILE]
-aws_access_key_id = $AWS_ACCESS_KEY_ID
-aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
-region = $AWS_DEFAULT_REGION
-EOF
-                            # Set permissions on the credentials file
-                            chmod 600 ~/.aws/credentials
-                        '''
-                    }
-                }
-            }
-        }
-
         stage("Create an EKS Cluster") {
             steps {
                 script {
                     dir('projects/deployK8Application/eks') {
-                        sh 'terraform init'
-                        sh 'terraform plan'
-                        sh 'terraform apply -auto-approve'
+                        sh "terraform init"
+                        sh "terraform plan"
+                        sh "terraform apply -auto-approve"
                     }
                 }
             }
         }
-
         stage("Deploy to EKS") {
             steps {
                 script {
                     dir('projects/deployK8Application/kubernetes') {
-                        sh '''
-                            echo "=== Checking tool versions ==="
-                            aws --version
-                            kubectl version --client
-
-                            # Get the cluster name dynamically if possible, or use the static one
-                            # Assuming the cluster name is 'jenkins-eks-cluster' based on your Terraform
-                            CLUSTER_NAME="jenkins-eks-cluster"
-
-                            echo "=== Configuring kubeconfig to ${KUBECONFIG} using profile $KUBECTL_AWS_PROFILE ==="
-                            # Use the temporary profile we created earlier for update-kubeconfig
-                            aws eks update-kubeconfig \
-                                --name $CLUSTER_NAME \
-                                --region $AWS_DEFAULT_REGION \
-                                --kubeconfig $KUBECONFIG \
-                                --profile $KUBECTL_AWS_PROFILE
-
-                            echo "=== Adding --profile argument to the exec command in kubeconfig ==="
-                            # Use sed to inject the --profile argument into the exec args
-                            # Find the line with "- get-token" and append the - --profile and - $KUBECTL_AWS_PROFILE lines
-                            # The 'a' command in sed adds text after the matched line. Newlines in the replacement are literal.
-                            sed -i '/- get-token/a \ \ \ \ - --profile\n\ \ \ \ - '"$KUBECTL_AWS_PROFILE" "$KUBECONFIG"
-
-                            echo "=== Verifying kubeconfig file exists and its permissions ==="
-                            ls -la $KUBECONFIG
-                            # Check the cluster endpoint and auth mechanism
-                            echo "=== Cluster Info from kubeconfig ==="
-                            grep -A2 "server:" $KUBECONFIG
-                            echo "=== Auth Provider/Exec Info (should now include --profile $KUBECTL_AWS_PROFILE) ==="
-                            grep -A12 "exec:" $KUBECONFIG
-
-                            echo "=== Attempting to get cluster info using kubectl ==="
-                            # This command tests authentication
-                            kubectl cluster-info
-
-                            echo "=== Deploying Nginx ==="
-                            kubectl apply -f nginx-deployment.yaml
-
-                            kubectl delete service nginx --ignore-not-found
-                            kubectl apply -f nginx-service.yaml
-
-                            echo "=== Done. LB will be ready in 2-5 minutes ==="
-                        '''
+                        sh "aws eks update-kubeconfig --name jenkins-eks-cluster --region $AWS_DEFAULT_REGION"
+                        sh "kubectl apply -f nginx-deployment.yaml"
+                        sh "kubectl apply -f nginx-service.yaml"
                     }
                 }
             }
-        }
-    }
-    post {
-        always {
-            // Optional: Clean up the temporary credentials file after the build, regardless of success/failure
-            sh '''
-                if [ -f ~/.aws/credentials ]; then
-                    rm ~/.aws/credentials
-                    echo "Temporary AWS credentials file removed."
-                fi
-            '''
         }
     }
 }
