@@ -1,8 +1,8 @@
-ssh -i jenkins-server.pem ec2-user@54.157.55.223 'sudo cat /var/lib/jenkins/secrets/initialAdminPassword' 
+ssh -i global-key-pair.pem ec2-user@54.144.4.191 'sudo cat /var/lib/jenkins/secrets/initialAdminPassword'
 
 
-ssh -i jenkins-server.pem ec2-user@54.157.55.223 'sudo systemctl status jenkins'
-ssh -i jenkins-server.pem ec2-user@54.157.55.223 'sudo systemctl is-active jenkins'
+ssh -i global-key-pair.pem ec2-user@54.157.55.223 'sudo systemctl status jenkins'
+ssh -i global-key-pair.pem ec2-user@54.157.55.223 'sudo systemctl is-active jenkins'
 
 
 https://plugins.jenkins.io/pipeline-stage-view              # Pipeline <Stage View> Plugin
@@ -79,8 +79,15 @@ kubectl get svc nginx -o wide
 + Kind -> Username with password
 + Scope -> Global ... + Username + Password
 
+# GitHub AWS Secrets
++ Manage Jenkins -> Credentials -> Stores scoped to Jenkins -> Global credentials (unrestricted)
++ Add Credentials -> Kind -> Secret text -> Secret + ID
+Where ID are: 
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+And Secrets need to catch it from ~/.aws/credentials
 
-# GitHub Pipeline configuration
+# GitHub Pipeline Configuration
 + New Item -> jenkins-server -> Pipeline -> OK
 + Pipeline -> Definition -> Pipeline script from SCM
 + SCM -> Git
