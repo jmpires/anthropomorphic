@@ -6,7 +6,7 @@
 
 
 ### 📖 Article Link
-N/A
+[WIP] - Read the full article on Medium: [101 Setting Up a User Defined Kubernetes Cluster on AWS using Ubuntu Server and Terraform](https://medium.com/p/bfe34a6f1125/edit)
 
 
 ### 📋 Code Structure - Jenkins Server
