@@ -68,9 +68,10 @@ EOF
                                 --profile $KUBECTL_AWS_PROFILE
 
                             echo "=== Adding --profile argument to the exec command in kubeconfig ==="
-                            # Use yq (if available) or sed/awk to inject the --profile argument into the exec args
-                            # Using sed here for simplicity, assuming standard formatting
-                            sed -i "/- get-token/a\      - --profile\\n      - $KUBECTL_AWS_PROFILE" "$KUBECONFIG"
+                            # Use sed to inject the --profile argument into the exec args
+                            # Find the line with "- get-token" and append the - --profile and - $KUBECTL_AWS_PROFILE lines
+                            # The 'a' command in sed adds text after the matched line. Newlines in the replacement are literal.
+                            sed -i '/- get-token/a \ \ \ \ - --profile\n\ \ \ \ - '"$KUBECTL_AWS_PROFILE" "$KUBECONFIG"
 
                             echo "=== Verifying kubeconfig file exists and its permissions ==="
                             ls -la $KUBECONFIG
