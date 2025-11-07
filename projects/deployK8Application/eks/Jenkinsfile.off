@@ -5,7 +5,6 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION    = "us-east-1"
-        // Ensure KUBECONFIG points to the workspace
         KUBECONFIG            = "${WORKSPACE}/kubeconfig"
     }
     stages {
@@ -31,24 +30,13 @@ pipeline {
                             kubectl version --client
 
                             echo "=== Configuring kubeconfig to ${KUBECONFIG} ==="
-                            # Use the correct cluster name from your Terraform
-                            # Ensure 'jenkins-eks-cluster' matches the name defined in your Terraform code
                             aws eks update-kubeconfig \
                                 --name jenkins-eks-cluster \
                                 --region $AWS_DEFAULT_REGION \
                                 --kubeconfig $KUBECONFIG
 
-                            echo "=== Verifying kubeconfig file exists and its permissions ==="
-                            ls -la $KUBECONFIG
-                            # Check the cluster endpoint and auth mechanism
-                            echo "=== Cluster Info from kubeconfig ==="
-                            grep -A2 "server:" $KUBECONFIG
-                            echo "=== Auth Provider/Exec Info ==="
-                            grep -A5 "exec:" $KUBECONFIG || grep -A5 "token:" $KUBECONFIG
-
-                            echo "=== Attempting to get cluster info using kubectl ==="
-                            # This command tests authentication
-                            kubectl cluster-info
+                            echo "=== Verifying kubeconfig exec apiVersion ==="
+                            grep -A5 "exec:" $KUBECONFIG
 
                             echo "=== Deploying Nginx ==="
                             kubectl apply -f nginx-deployment.yaml
