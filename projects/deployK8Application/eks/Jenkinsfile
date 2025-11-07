@@ -2,14 +2,38 @@
 pipeline {
     agent any
     environment {
+        // Set AWS credentials for Terraform and general use
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION    = "us-east-1"
-        // Define a temporary profile name for this pipeline run
-        AWS_PROFILE           = "jenkins_pipeline_profile"
+        // Define a temporary profile name for kubectl's use later
+        KUBECTL_AWS_PROFILE   = "jenkins_pipeline_kubectl_profile"
         KUBECONFIG            = "${WORKSPACE}/kubeconfig"
     }
     stages {
+        stage("Prepare AWS Profile for kubectl") {
+            steps {
+                script {
+                    dir('projects/deployK8Application/eks') { // Or a common dir if needed
+                        sh '''
+                            echo "=== Preparing temporary AWS profile for kubectl ==="
+                            # Configure a temporary AWS profile using the environment variables
+                            # This profile will be used by kubectl, not Terraform
+                            mkdir -p ~/.aws
+                            cat > ~/.aws/credentials << EOF
+[$KUBECTL_AWS_PROFILE]
+aws_access_key_id = $AWS_ACCESS_KEY_ID
+aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+region = $AWS_DEFAULT_REGION
+EOF
+                            # Set permissions on the credentials file
+                            chmod 600 ~/.aws/credentials
+                        '''
+                    }
+                }
+            }
+        }
+
         stage("Create an EKS Cluster") {
             steps {
                 script {
@@ -31,29 +55,24 @@ pipeline {
                             aws --version
                             kubectl version --client
 
-                            # Configure a temporary AWS profile using the environment variables
-                            mkdir -p ~/.aws
-                            cat > ~/.aws/credentials << EOF
-[$AWS_PROFILE]
-aws_access_key_id = $AWS_ACCESS_KEY_ID
-aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
-region = $AWS_DEFAULT_REGION
-EOF
+                            # Get the cluster name dynamically if possible, or use the static one
+                            # Assuming the cluster name is 'jenkins-eks-cluster' based on your Terraform
+                            CLUSTER_NAME="jenkins-eks-cluster"
 
-                            echo "=== Configuring kubeconfig to ${KUBECONFIG} using profile $AWS_PROFILE ==="
-                            # Use the temporary profile for update-kubeconfig
+                            echo "=== Configuring kubeconfig to ${KUBECONFIG} using profile $KUBECTL_AWS_PROFILE ==="
+                            # Use the temporary profile we created earlier for update-kubeconfig
                             aws eks update-kubeconfig \
-                                --name jenkins-eks-cluster \
+                                --name $CLUSTER_NAME \
                                 --region $AWS_DEFAULT_REGION \
                                 --kubeconfig $KUBECONFIG \
-                                --profile $AWS_PROFILE
+                                --profile $KUBECTL_AWS_PROFILE
 
                             echo "=== Verifying kubeconfig file exists and its permissions ==="
                             ls -la $KUBECONFIG
                             # Check the cluster endpoint and auth mechanism
                             echo "=== Cluster Info from kubeconfig ==="
                             grep -A2 "server:" $KUBECONFIG
-                            echo "=== Auth Provider/Exec Info (should include profile $AWS_PROFILE) ==="
+                            echo "=== Auth Provider/Exec Info (should include profile $KUBECTL_AWS_PROFILE) ==="
                             grep -A10 "exec:" $KUBECONFIG
 
                             echo "=== Attempting to get cluster info using kubectl ==="
@@ -71,6 +90,17 @@ EOF
                     }
                 }
             }
+        }
+    }
+    post {
+        always {
+            // Optional: Clean up the temporary credentials file after the build, regardless of success/failure
+            sh '''
+                if [ -f ~/.aws/credentials ]; then
+                    rm ~/.aws/credentials
+                    echo "Temporary AWS credentials file removed."
+                fi
+            '''
         }
     }
 }
