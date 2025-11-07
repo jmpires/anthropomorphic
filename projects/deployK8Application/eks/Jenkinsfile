@@ -5,7 +5,8 @@ pipeline {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION    = "us-east-1"
-        // Ensure KUBECONFIG points to the workspace
+        // Define a temporary profile name for this pipeline run
+        AWS_PROFILE           = "jenkins_pipeline_profile"
         KUBECONFIG            = "${WORKSPACE}/kubeconfig"
     }
     stages {
@@ -30,21 +31,30 @@ pipeline {
                             aws --version
                             kubectl version --client
 
-                            echo "=== Configuring kubeconfig to ${KUBECONFIG} ==="
-                            # Use the correct cluster name from your Terraform
-                            # Ensure 'jenkins-eks-cluster' matches the name defined in your Terraform code
+                            # Configure a temporary AWS profile using the environment variables
+                            mkdir -p ~/.aws
+                            cat > ~/.aws/credentials << EOF
+[$AWS_PROFILE]
+aws_access_key_id = $AWS_ACCESS_KEY_ID
+aws_secret_access_key = $AWS_SECRET_ACCESS_KEY
+region = $AWS_DEFAULT_REGION
+EOF
+
+                            echo "=== Configuring kubeconfig to ${KUBECONFIG} using profile $AWS_PROFILE ==="
+                            # Use the temporary profile for update-kubeconfig
                             aws eks update-kubeconfig \
                                 --name jenkins-eks-cluster \
                                 --region $AWS_DEFAULT_REGION \
-                                --kubeconfig $KUBECONFIG
+                                --kubeconfig $KUBECONFIG \
+                                --profile $AWS_PROFILE
 
                             echo "=== Verifying kubeconfig file exists and its permissions ==="
                             ls -la $KUBECONFIG
                             # Check the cluster endpoint and auth mechanism
                             echo "=== Cluster Info from kubeconfig ==="
                             grep -A2 "server:" $KUBECONFIG
-                            echo "=== Auth Provider/Exec Info ==="
-                            grep -A5 "exec:" $KUBECONFIG || grep -A5 "token:" $KUBECONFIG
+                            echo "=== Auth Provider/Exec Info (should include profile $AWS_PROFILE) ==="
+                            grep -A10 "exec:" $KUBECONFIG
 
                             echo "=== Attempting to get cluster info using kubectl ==="
                             # This command tests authentication
