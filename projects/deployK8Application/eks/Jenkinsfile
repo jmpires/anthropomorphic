@@ -67,13 +67,18 @@ EOF
                                 --kubeconfig $KUBECONFIG \
                                 --profile $KUBECTL_AWS_PROFILE
 
+                            echo "=== Adding --profile argument to the exec command in kubeconfig ==="
+                            # Use yq (if available) or sed/awk to inject the --profile argument into the exec args
+                            # Using sed here for simplicity, assuming standard formatting
+                            sed -i "/- get-token/a\      - --profile\\n      - $KUBECTL_AWS_PROFILE" "$KUBECONFIG"
+
                             echo "=== Verifying kubeconfig file exists and its permissions ==="
                             ls -la $KUBECONFIG
                             # Check the cluster endpoint and auth mechanism
                             echo "=== Cluster Info from kubeconfig ==="
                             grep -A2 "server:" $KUBECONFIG
-                            echo "=== Auth Provider/Exec Info (should include profile $KUBECTL_AWS_PROFILE) ==="
-                            grep -A10 "exec:" $KUBECONFIG
+                            echo "=== Auth Provider/Exec Info (should now include --profile $KUBECTL_AWS_PROFILE) ==="
+                            grep -A12 "exec:" $KUBECONFIG
 
                             echo "=== Attempting to get cluster info using kubectl ==="
                             # This command tests authentication
