@@ -165,3 +165,17 @@ aws ec2 delete-vpc --vpc-id vpc-xxxxxxxxx --region us-east-1 --profile jmpires
 
 aws logs describe-log-groups --log-group-name-prefix "/aws/eks/jenkins-eks-cluster"
 aws logs delete-log-group --log-group-name "/aws/eks/jenkins-eks-cluster/cluster"
+
+
+/aws/lambda/cwsyn-demo-birst-test-daf23d17-5dbe-40a7-92c5-14c02bbf925f
+/aws/lambda/cwsyn-my-avatar-test-387bd603-3f20-4e45-bafd-2decc399a2e2
+
+
+# Find and terminate any running instances in the VPC
+INSTANCE_IDS=$(aws ec2 describe-instances --region us-east-1 --profile jmpires --filters "Name=vpc-id,Values=vpc-0f800dbed3b03ff7b" --query 'Reservations[].Instances[?State.Name!=`terminated`].InstanceId' --output text)
+if [ -n "$INSTANCE_IDS" ]; then
+    echo "Terminating instances: $INSTANCE_IDS"
+    aws ec2 terminate-instances --instance-ids $INSTANCE_IDS --region us-east-1 --profile jmpires
+    # Wait for termination (optional, but good practice)
+    aws ec2 wait instance-terminated --instance-ids $INSTANCE_IDS --region us-east-1 --profile jmpires
+fi

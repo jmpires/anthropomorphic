@@ -5,9 +5,9 @@ set -euo pipefail
 clear
 
 # === CONFIGURE THESE ===
-VPC_ID="vpc-0af110165c44a0e75"
-SUBNETS=("subnet-014f0586507136051")
-IGW_ID="igw-850225fd"
+VPC_ID="vpc-0f800dbed3b03ff7b"
+SUBNETS=("subnet-0e55f4f3150288bff" "subnet-0813759c5af210b4c")
+IGW_ID="igw-035692aeb8746c47e"
 # =======================
 
 SUBNET_LIST=$(IFS=,; echo "${SUBNETS[*]}")
