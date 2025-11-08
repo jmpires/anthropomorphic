@@ -96,8 +96,8 @@ And Secrets need to catch it from ~/.aws/credentials
 - Branches to build -> Branch Specifier (blank for 'any') -> */main
 - Script Path -> <path_to_Jenkinsfile> e.g.: projects/deployK8Application/eks/Jenkinsfile
   + current:
-  projects/deployK8Application/eks/jenkinsApply/Jenkinsfile
-  projects/deployK8Application/eks/jenkinsDestroy/Jenkinsfile
+  projects/deployK8Application/jenkinsfile/jenkinsApply/Jenkinsfile
+  projects/deployK8Application/jenkinsfile/jenkinsDestroy/Jenkinsfile
 
 # Troubleshoot access to nginx app
 kubectl get svc nginx       # expected to have a value in EXTERNAL-IP
