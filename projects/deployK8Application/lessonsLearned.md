@@ -115,3 +115,20 @@ aws logs describe-log-groups --log-group-name-prefix "/aws/eks/jenkins-eks-clust
 aws logs delete-log-group --log-group-name "/aws/eks/jenkins-eks-cluster/cluster"
 
 aws eks update-kubeconfig --name jenkins-eks-cluster --region us-east-1
+
+
+### Full EKS cli commands deletion
+aws eks delete-cluster --name jenkins-eks-cluster --region us-east-1 --profile jmpires
+
+# List and delete any remaining node groups if the cluster deletion didn't handle them
+aws eks list-nodegroups --cluster-name jenkins-eks-cluster --region us-east-1 --profile jmpires
+# If found, run: aws eks delete-nodegroup --cluster-name jenkins-eks-cluster --nodegroup-name <name> --region us-east-1 --profile jmpires
+
+# Find the VPC ID
+aws ec2 describe-vpcs --region us-east-1 --profile jmpires --filters "Name=tag:Name,Values=jenkins-eks-cluster-vpc"
+# Or search for the main VPC tag from your Terraform config
+aws ec2 describe-vpcs --region us-east-1 --profile jmpires --filters "Name=tag:Name,Values=main-vpc"
+# Or use the more generic tag from Terraform AWS module
+aws ec2 describe-vpcs --region us-east-1 --profile jmpires --filters "Name=tag:kubernetes.io/cluster/jenkins-eks-cluster,Values=shared"
+
+
