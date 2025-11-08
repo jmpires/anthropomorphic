@@ -1,7 +1,7 @@
 # 📘 **AWS User Defined K8 Cluster**
 
 ### 📖 Article Link
-Read the full article on Medium: [101 Setting Up a User Defined Kubernetes Cluster on AWS using Ubuntu Server and Terraform](https://medium.com/p/217b14b80239/edit)
+[WIP] Read the full article on Medium: [101 Setting Up a User Defined Kubernetes Cluster on AWS using Ubuntu Server and Terraform](https://medium.com/p/217b14b80239/edit)
 
 
 ### 📋 Code Structure
