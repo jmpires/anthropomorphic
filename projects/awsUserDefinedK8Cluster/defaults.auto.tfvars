@@ -4,7 +4,7 @@ rsa_bits_id  = 2048
 region_id    = "us-east-1"
 
 # --- Kubernetes cluster size ---
-total_instances             = 2
+total_instances             = 3
 control_plane_instance_type = "t3.small"
 worker_instance_type        = "t3.small"
 

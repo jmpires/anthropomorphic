@@ -44,7 +44,7 @@ chmod 600 "$KEY_FILE" >/dev/null 2>&1
 
 # --- Argument validation ---
 if [[ $# -ne 2 ]]; then
-  error "Usage: $0 <node-name> <local-script-path>\n\nExample: $0 node-0 ./k8s-worker-setup.sh"
+  error "Usage: $0 <node-id> <role-script>\n\nExample: $0 node-0 ./k8ControlPlane.sh"
 fi
 
 NODE_NAME="$1"
