@@ -4,8 +4,8 @@ metadata:
   name: nginx
   labels:
     app: nginx
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+#  annotations:
+#    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
   ports:

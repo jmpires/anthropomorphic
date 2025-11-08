@@ -132,3 +132,4 @@ aws ec2 describe-vpcs --region us-east-1 --profile jmpires --filters "Name=tag:N
 aws ec2 describe-vpcs --region us-east-1 --profile jmpires --filters "Name=tag:kubernetes.io/cluster/jenkins-eks-cluster,Values=shared"
 
 
+http://internal-a8c97693d34b547d8a674ee676ca2d3f-692682720.us-east-1.elb.amazonaws.com
