@@ -132,5 +132,36 @@ aws ec2 describe-vpcs --region us-east-1 --profile jmpires --filters "Name=tag:N
 # Or use the more generic tag from Terraform AWS module
 aws ec2 describe-vpcs --region us-east-1 --profile jmpires --filters "Name=tag:kubernetes.io/cluster/jenkins-eks-cluster,Values=shared"
 
+aws ec2 describe-subnets --region us-east-1 --profile jmpires --filters "Name=vpc-id,Values=vpc-xxxxxxxxx"
+# Delete each subnet found (replace subnet IDs)
+# aws ec2 delete-subnet --subnet-id subnet-xxxxx --region us-east-1 --profile jmpires
+# Repeat for all subnets in the VPC
 
-http://internal-a8c97693d34b547d8a674ee676ca2d3f-692682720.us-east-1.elb.amazonaws.com
+aws ec2 describe-route-tables --region us-east-1 --profile jmpires --filters "Name=vpc-id,Values=vpc-xxxxxxxxx"
+# Delete custom route tables (do NOT delete the main route table association, just the table itself if it's custom and empty of dependencies)
+# aws ec2 delete-route-table --route-table-id rtb-xxxxx --region us-east-1 --profile jmpires
+
+aws ec2 describe-internet-gateways --region us-east-1 --profile jmpires --filters "Name=attachment.vpc-id,Values=vpc-xxxxxxxxx"
+# Detach and then delete the IGW (replace igw-xxxxx)
+# aws ec2 detach-internet-gateway --internet-gateway-id igw-xxxxx --vpc-id vpc-xxxxxxxxx --region us-east-1 --profile jmpires
+# aws ec2 delete-internet-gateway --internet-gateway-id igw-xxxxx --region us-east-1 --profile jmpires
+
+aws ec2 describe-nat-gateways --region us-east-1 --profile jmpires --filter "Name=vpc-id,Values=vpc-xxxxxxxxx"
+# Find the NAT Gateway ID (e.g., nat-xxxxxxxxx), delete it, and wait for state 'deleted'
+# aws ec2 delete-nat-gateway --nat-gateway-id nat-xxxxxxxxx --region us-east-1 --profile jmpires
+# Check status: aws ec2 describe-nat-gateways --nat-gateway-ids nat-xxxxxxxxx --region us-east-1 --profile jmpires
+# Once 'deleted', also delete the associated Elastic IP if it was created specifically for this NAT.
+
+aws ec2 describe-security-groups --region us-east-1 --profile jmpires --filters "Name=vpc-id,Values=vpc-xxxxxxxxx"
+# Delete custom security groups (be careful not to delete default SG or ones used by other resources)
+# aws ec2 delete-security-group --group-id sg-xxxxx --region us-east-1 --profile jmpires
+# (The EKS-created SGs should be deletable once the cluster is fully gone)
+
+aws ec2 describe-network-interfaces --region us-east-1 --profile jmpires --filters "Name=vpc-id,Values=vpc-xxxxxxxxx"
+# Check if any ENIs are 'available' (not attached) or associated with deleted resources, and delete them.
+# aws ec2 delete-network-interface --network-interface-id eni-xxxxx --region us-east-1 --profile jmpires
+
+aws ec2 delete-vpc --vpc-id vpc-xxxxxxxxx --region us-east-1 --profile jmpires
+
+aws logs describe-log-groups --log-group-name-prefix "/aws/eks/jenkins-eks-cluster"
+aws logs delete-log-group --log-group-name "/aws/eks/jenkins-eks-cluster/cluster"
