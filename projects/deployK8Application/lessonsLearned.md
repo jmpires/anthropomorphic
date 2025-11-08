@@ -5,7 +5,7 @@ ssh -i global-key-pair.pem ec2-user@54.157.55.223 'sudo systemctl status jenkins
 ssh -i global-key-pair.pem ec2-user@54.157.55.223 'sudo systemctl is-active jenkins'
 
 
-https://plugins.jenkins.io/pipeline-stage-view              # Pipeline <Stage View> Plugin
+https://plugins.jenkins.io/pipeline-stage-view              # Pipeline <cat > Plugin
 
 
 aws sts get-caller-identity
@@ -95,7 +95,9 @@ And Secrets need to catch it from ~/.aws/credentials
 - Credentials -> jmpires/******
 - Branches to build -> Branch Specifier (blank for 'any') -> */main
 - Script Path -> <path_to_Jenkinsfile> e.g.: projects/deployK8Application/eks/Jenkinsfile
-
+  + current:
+  projects/deployK8Application/eks/jenkinsApply/Jenkinsfile
+  projects/deployK8Application/eks/jenkinsDestroy/Jenkinsfile
 
 # Troubleshoot access to nginx app
 kubectl get svc nginx       # expected to have a value in EXTERNAL-IP
@@ -107,3 +109,9 @@ curl -m 10 http://af5422b9b0ca843da81c02aa347dfee8-1191466311.us-east-1.elb.amaz
 
 + Do NOT USE https (unless defined in the nginx deployment. Use http)
 http://<alb_address>
+
+# Troubleshooting some leftovers in EKS
+aws logs describe-log-groups --log-group-name-prefix "/aws/eks/jenkins-eks-cluster"
+aws logs delete-log-group --log-group-name "/aws/eks/jenkins-eks-cluster/cluster"
+
+aws eks update-kubeconfig --name jenkins-eks-cluster --region us-east-1
