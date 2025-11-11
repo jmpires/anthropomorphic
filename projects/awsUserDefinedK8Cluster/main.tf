@@ -44,6 +44,19 @@ data "aws_vpc" "default" {
   default = true
 }
 
+# Subnet resources for control plane and worker nodes
+resource "aws_subnet" "k8s_workers" {
+  count                   = length(var.availability_zones)
+  vpc_id                  = data.aws_vpc.default.id
+  cidr_block              = cidrsubnet(data.aws_vpc.default.cidr_block, 4, count.index)
+  availability_zone       = var.availability_zones[count.index]
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "k8s-worker-${var.availability_zones[count.index]}"
+  }
+}
+
 # Simple flat list of instances based on total_instances
 locals {
   instances = {
@@ -121,6 +134,7 @@ resource "aws_instance" "k8s_node" {
   instance_type          = each.value.instance_type
   key_name               = var.aws_key_pair_id
   vpc_security_group_ids = [aws_security_group.k8SecurityGroup.id]
+  subnet_id              = aws_subnet.k8s_workers[0].id  # Use first subnet ID for all instances
 
   root_block_device {
     volume_size           = 20 # Increased for Kubernetes (10GB is often too small)

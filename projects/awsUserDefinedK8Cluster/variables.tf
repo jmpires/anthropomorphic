@@ -25,6 +25,12 @@ variable "aws_profile" {
   description = "The AWS profile to be used to deploy."
 }
 
+variable "availability_zones" {
+  description = "List of availability zones to create subnets in for high availability"
+  type        = list(string)
+  default     = ["us-east-1a", "us-east-1b", "us-east-1c"] # 3 AZs for HA without over-provisioning
+}
+
 # --- Instance & Cluster Configuration ---
 # Simple way to define cluster size
 variable "total_instances" {
@@ -72,7 +78,6 @@ variable "aws_key_pair_id" {
   description = "The name of the AWS key pair to be created and used."
 }
 
-# variables.tf
 variable "key_pair_filename" {
   type = string
   # default     = "smallEKS-KeyPair.pem"  # optional fallback
