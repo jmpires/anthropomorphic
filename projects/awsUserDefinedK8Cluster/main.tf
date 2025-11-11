@@ -30,7 +30,7 @@ resource "local_file" "KeyPair_pem" {
 
   # Optional: Add lifecycle to prevent accidental deletion
   lifecycle {
-    prevent_destroy = false # 👈 temporarily set to false. Set to true to avoid accidental destroy.
+    prevent_destroy = false # Temporarily set to false. Set to true to avoid accidental destroy.
   }
 }
 
