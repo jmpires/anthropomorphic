@@ -20,12 +20,12 @@ done
 export DEBIAN_FRONTEND=noninteractive
 
 # --- Disable swap
-echo "🔧 Disabling swap..."
+echo "Disabling swap..."
 swapoff -a
 sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 
 # --- Kernel modules
-echo "🔧 Loading kernel modules..."
+echo "Loading kernel modules..."
 modprobe overlay
 modprobe br_netfilter
 
@@ -43,7 +43,7 @@ EOF
 sysctl --system >/dev/null 2>&1
 
 # --- Step 4: Install and configure containerd
-echo "🔧 Installing containerd..."
+echo "Installing containerd..."
 apt update
 apt install -y containerd
 
@@ -55,7 +55,7 @@ systemctl restart containerd
 systemctl enable --now containerd
 
 # --- Step 5: Install Kubernetes (v1.29)
-echo "🔧 Installing Kubernetes..."
+echo "Installing Kubernetes..."
 
 # ✅ FIXED: NO SPACES in URLs
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key \
@@ -70,7 +70,7 @@ apt-mark hold kubelet kubeadm kubectl
 systemctl enable --now kubelet
 
 # --- Step 6: Initialize cluster
-echo "🔧 Initializing Kubernetes cluster..."
+echo "Initializing Kubernetes cluster..."
 kubeadm init --pod-network-cidr=192.168.0.0/16
 
 # --- Step 7: Configure kubectl for ROOT
@@ -79,7 +79,7 @@ cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 chown $(id -u):$(id -g) $HOME/.kube/config
 
 # --- Step 8: Configure kubectl for UBUNTU user
-echo "🔧 Configuring kubectl for 'ubuntu' user..."
+echo "Configuring kubectl for 'ubuntu' user..."
 if id "ubuntu" &>/dev/null; then
   sudo -u ubuntu mkdir -p /home/ubuntu/.kube
   cp -i /etc/kubernetes/admin.conf /home/ubuntu/.kube/config
@@ -93,7 +93,7 @@ fi
 kubectl taint nodes --all node-role.kubernetes.io/control-plane- 2>/dev/null || true
 
 # --- Step 10: Install Calico with auto-detected interface
-echo "🔧 Installing Calico..."
+echo "Installing Calico..."
 
 PRIMARY_IFACE=$(ip -o addr show up primary scope global 2>/dev/null | awk '{print $2; exit}' | sed 's/://')
 if [ -z "$PRIMARY_IFACE" ]; then
@@ -105,10 +105,10 @@ fi
 
 echo "Using network interface: $PRIMARY_IFACE"
 
-# ✅ Use pinned Calico version that supports your original sed
+# Use pinned Calico version that supports your original sed
 curl -O https://raw.githubusercontent.com/projectcalico/calico/v3.26.1/manifests/calico.yaml
 
-# ✅ Your original, working sed command (now safe with v3.26.1)
+# Your original, working sed command (now safe with v3.26.1)
 sed -i '/# Auto-detect the BGP IP address\./,/value: "autodetect"/{
   /value: "autodetect"/a\
             - name: IP_AUTODETECTION_METHOD\n              value: "interface='"$PRIMARY_IFACE"'"
