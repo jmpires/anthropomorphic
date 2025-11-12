@@ -12,6 +12,9 @@
 
 🔗 [Bash scripting: reading and modifying shell scripts for automation tasks.](https://tldp.org/LDP/Bash-Beginners-Guide/html/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
 
+**jq Manual**
+
+🔗 [jq Manual.](https://jqlang.org/manual)
 
 **Git & GitHub basics**
 
@@ -47,3 +50,8 @@
 **Terraform**
 
 🔗 [Terraform v1.6 or later](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli)
+
+**jq**
+
+🔗 [jq v1.8 or later](https://jqlang.org/download)
+

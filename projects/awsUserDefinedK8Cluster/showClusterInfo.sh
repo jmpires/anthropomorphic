@@ -1,7 +1,13 @@
 #!/bin/bash
+# Script name: showClusterInfo.sh
+# Description: Simple script to display cluster info from Terraform output
+# OS supported: MacOS, Linux
+# Author: Jorge Manuel Pires
+# Contributors: Jorge Manuel Pires
+# Initial Version.Last Updated(updates)	:v20251008.v20251016(3)
 
-# Simple script to display cluster info from Terraform output
-# Works on macOS and Linux
+# For debugging purposes
+# set -x
 
 set -e
 
