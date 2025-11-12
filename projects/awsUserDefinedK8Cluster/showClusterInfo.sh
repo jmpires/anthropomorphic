@@ -30,11 +30,11 @@ fi
 
 # Extract region
 REGION=$(echo "$TF_OUTPUT" | jq -r '.region.name // "unknown"')
-echo -e "${BLUE} Region:${NC} $REGION"
+echo -e "${BLUE}| Region:${NC} $REGION"
 echo
 
 # Extract and display instances
-echo -e "${BLUE} Instances:${NC}"
+echo -e "${BLUE}| Instances:${NC}"
 echo "------------------------------------------------------------------"
 echo -e "NAME       ROLE             PUBLIC IP       INSTANCE ID"
 echo "------------------------------------------------------------------"
@@ -45,14 +45,14 @@ echo "$TF_OUTPUT" | jq -r '.instances | to_entries[] | "\(.key)\t\(.value.role)\
 done
 
 echo
-echo -e "${BLUE}🔗 SSH Commands:${NC}"
+echo -e "${BLUE}| SSH Commands:${NC}"
 echo "------------------------------------------------------------------"
 echo "$TF_OUTPUT" | jq -r '.instances | to_entries[] | "\(.value.ssh_command)"' | while read -r cmd; do
   echo "$cmd"
 done
 
 echo
-echo -e "${BLUE}📊 Summary:${NC}"
+echo -e "${BLUE}| Summary:${NC}"
 INSTANCE_COUNT=$(echo "$TF_OUTPUT" | jq '[.instances[]] | length')
 echo "Total instances: $INSTANCE_COUNT"
 echo "Public IPs: $(echo "$TF_OUTPUT" | jq -r '.public_ips | join(", ")')"

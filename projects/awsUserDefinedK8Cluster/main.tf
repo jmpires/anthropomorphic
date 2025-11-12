@@ -114,6 +114,13 @@ resource "aws_security_group" "k8SecurityGroup" {
     protocol  = "-1" # all protocols
     self      = true
   }
+  # NodePort range (for testing services, e.g. nginx)
+  ingress {
+  from_port   = var.nodeport_range_start
+  to_port     = var.nodeport_range_end
+  protocol    = "tcp"
+  cidr_blocks = ["0.0.0.0/0"]
+}
 
   # Outbound traffic 
   egress {

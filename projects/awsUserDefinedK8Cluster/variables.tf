@@ -95,3 +95,16 @@ variable "instance_name_id" {
   # default     = "smallEKSClusterInstance"
   description = "The name tag for the EC2 instance."
 }
+
+# --- Kubernetes Specific Config --- ###################################
+variable "nodeport_range_start" {
+  description = "Start of NodePort range"
+  type        = number
+  default     = 30000
+}
+
+variable "nodeport_range_end" {
+  description = "End of NodePort range" 
+  type        = number
+  default     = 32767
+}
