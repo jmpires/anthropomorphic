@@ -18,12 +18,12 @@
 
 **Git & GitHub basics**
 
-🔗 [Git & GitHub basics: cloning repositories, creating branches, and opening pull requests or issues](https://skills.github.com/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
+🔗 [Git & GitHub basics: cloning repositories, creating branches, and opening pull requests or issues.](https://skills.github.com/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
 
 
 **Kubernetes**
 
-🔗 [Kubernetes concepts: nodes, pods, control plane, and networking](https://kubernetes.io/docs/tutorials/kubernetes-basics)
+🔗 [Kubernetes concepts: nodes, pods, control plane, and networking.](https://kubernetes.io/docs/tutorials/kubernetes-basics)
 
 
 **Terraform**
@@ -54,4 +54,3 @@
 **jq**
 
 🔗 [jq v1.8 or later](https://jqlang.org/download)
-
