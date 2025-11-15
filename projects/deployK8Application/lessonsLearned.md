@@ -1,9 +1,12 @@
-ssh -i global-key-pair.pem ec2-user@54.144.4.191 'sudo cat /var/lib/jenkins/secrets/initialAdminPassword'
+chmod 600 global-key-pair.pem
+
+ssh -i global-key-pair.pem ec2-user@54.92.129.171 'sudo cat /var/lib/jenkins/secrets/initialAdminPassword'
 
 
 ssh -i global-key-pair.pem ec2-user@54.157.55.223 'sudo systemctl status jenkins'
 ssh -i global-key-pair.pem ec2-user@54.157.55.223 'sudo systemctl is-active jenkins'
 
+http://54.92.129.171:8080/
 
 https://plugins.jenkins.io/pipeline-stage-view              # Pipeline <cat > Plugin
 
