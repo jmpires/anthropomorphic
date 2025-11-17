@@ -30,7 +30,7 @@ I work with a variety of technologies and frameworks, including but not limited 
 ```
 Anthropomorphic/
 │-- docs/               # Learning notes & documentation
-│-- projects/           # Full-stack and backend projects
+│-- projects/           # Projects
 │-- README.md           # You are here 🚀
 ```
 
