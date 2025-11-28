@@ -1,5 +1,4 @@
 # server.tf
-
 data "aws_ami" "latest-amazon-linux-image" {
   most_recent = true
   owners      = ["amazon"]
