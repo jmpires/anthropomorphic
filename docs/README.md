@@ -1,9 +1,7 @@
 # 📖 **Learning Logs**
 
 
-### AWS Account & Permissions
-
-### 1. AWS Account & Permissions
+### 📋 AWS Account & Permissions
 
 You must have:
 - An active AWS account ([sign up](https://aws.amazon.com/))
