@@ -17,32 +17,47 @@ You must have:
 ### 📋 Knowledge & Experience
 
 **AWS**
-
 🔗 [AWS fundamentals: launching EC2 instances, VPCs, IAM roles, and security groups.](https://aws.amazon.com/training/learn-about/cloud-practitioner)
 🔗 [Set up your AWS account and credentials (AWS Official Guide).](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
 
 **Bash scripting**
+🔗 [Bash scripting](https://tldp.org/LDP/Bash-Beginners-Guide/html/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
 
-🔗 [Bash scripting: reading and modifying shell scripts for automation tasks.](https://tldp.org/LDP/Bash-Beginners-Guide/html/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
 
-**jq Manual**
+**GitHub Actions**
 
-🔗 [jq Manual.](https://jqlang.org/manual)
+🔗 [EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
+
 
 **Git & GitHub basics**
 
-🔗 [Git & GitHub basics: cloning repositories, creating branches, and opening pull requests or issues.](https://skills.github.com/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
+🔗 [Git & GitHub basics](https://skills.github.com/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
+
+
+**GitHub Actions**
+
+🔗 [GitHub Actions](https://docs.github.com/en/actions/get-started/understand-github-actions)
+
+
+**Jenkins Handbook**
+
+🔗 [Jenkins Handbook](https://www.jenkins.io/doc/book/?spm=a2ty_o01.29997173.0.0.10495171PK2nWS#jenkins-handbook)
+
+
+**jq Manual**
+
+🔗 [jq Manual](https://jqlang.org/manual)
 
 
 **Kubernetes**
 
-🔗 [Kubernetes concepts: nodes, pods, control plane, and networking.](https://kubernetes.io/docs/tutorials/kubernetes-basics)
+🔗 [Kubernetes concepts](https://kubernetes.io/docs/tutorials/kubernetes-basics)
 
 
 **Terraform**
 
-🔗 [Terraform basics: writing configurations, using providers, and managing state.](https://developer.hashicorp.com/terraform/tutorials)
+🔗 [Terraform basics](https://developer.hashicorp.com/terraform/tutorials)
 
 #
 
