@@ -17,11 +17,13 @@ You must have:
 ### 📋 Knowledge & Experience
 
 **AWS**
+
 🔗 [AWS fundamentals: launching EC2 instances, VPCs, IAM roles, and security groups.](https://aws.amazon.com/training/learn-about/cloud-practitioner)
 🔗 [Set up your AWS account and credentials (AWS Official Guide).](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
 
 **Bash scripting**
+
 🔗 [Bash scripting](https://tldp.org/LDP/Bash-Beginners-Guide/html/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
 
 
