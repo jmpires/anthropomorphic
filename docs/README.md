@@ -7,6 +7,8 @@
 
 You must have:
 - An active AWS account ([sign up](https://aws.amazon.com/))
+
+
 📚 [Set up your AWS account and credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) (AWS Official Guide)  
 💡 **Avoid using root account credentials.** You'll incur standard AWS charges—remember to clean up all resources (e.g., `terraform destroy`) when you're done.
 
