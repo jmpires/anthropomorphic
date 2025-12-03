@@ -15,7 +15,7 @@ data "aws_ami" "latest-amazon-linux-image" {
 resource "aws_instance" "my-server" {
   ami                         = data.aws_ami.latest-amazon-linux-image.id
   instance_type               = var.instance_type
-  key_name                    = "global-key-pair"
+  key_name                    = "code-key-pair"
   subnet_id                   = aws_subnet.jenkins-subnet-1.id
   vpc_security_group_ids      = [aws_security_group.jenkins_sg.id]
   availability_zone           = var.availability_zone
