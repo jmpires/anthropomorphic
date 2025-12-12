@@ -1,10 +1,9 @@
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 19.0"
-  # version = "~> 20.0"
+  version = "~> 20.0"
 
   cluster_name    = "jenkins-eks-cluster"
-  cluster_version = "1.28"
+  cluster_version = "1.31"
 
   cluster_endpoint_public_access = true
 
@@ -22,10 +21,8 @@ module "eks" {
       max_size     = 3
       desired_size = 2
 
-      instance_types = ["t2.small"]
-
-      # Required for EKS 1.28+
-      ami_type = "AL2023_x86_64_STANDARD"
+      instance_types = ["t3.small"]
+      ami_type       = "AL2023_x86_64_STANDARD"
     }
   }
 }

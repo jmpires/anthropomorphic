@@ -14,9 +14,7 @@ sudo yum update -y
 # Jenkins >= 2.357 requires Java 17 or 21
 # Using Amazon Corretto: official, LTS, and fully supported
 # -------------------------------------------------
-sudo yum install -y java-17-amazon-corretto-headless
-
-# Verify Java installation (optional but explicit)
+sudo yum install -y java-21-amazon-corretto-headless
 java -version
 
 # -------------------------------------------------
