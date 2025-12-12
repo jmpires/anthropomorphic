@@ -15,12 +15,10 @@ module "eks" {
     application = "nginx-app"
   }
 
-  # -------------------------------
-  # Give Jenkins EC2 instance access
-  # -------------------------------
+  # Give Jenkins IAM role full cluster admin access
   cluster_access_entries = {
-    jenkins_ec2_role = {
-      principal_arn     = "arn:aws:iam::682882937469:role/JenkinsEKSRole" # replace with your EC2 instance role
+    jenkins_admin = {
+      principal_arn     = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
       kubernetes_groups = ["system:masters"]
     }
   }
