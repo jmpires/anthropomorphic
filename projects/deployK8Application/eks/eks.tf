@@ -1,3 +1,4 @@
+# eks.tf
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
@@ -15,6 +16,15 @@ module "eks" {
     application = "nginx-app"
   }
 
+  # Grant Jenkins IAM Role full cluster admin access
+  map_roles = [
+    {
+      rolearn  = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
+      username = "jenkins-admin"
+      groups   = ["system:masters"]
+    }
+  ]
+
   eks_managed_node_groups = {
     eks_node = {
       min_size       = 1
@@ -26,39 +36,14 @@ module "eks" {
   }
 }
 
-# -------------------------------------------------
-# Kubernetes Provider pointing to EKS Cluster
-# -------------------------------------------------
+# Get EKS cluster auth token
 data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
+  name = module.eks.cluster_name
 }
 
+# Configure Kubernetes provider
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
   token                  = data.aws_eks_cluster_auth.cluster.token
-}
-
-# -------------------------------------------------
-# Map Jenkins IAM Role to system:masters
-# -------------------------------------------------
-resource "kubernetes_config_map" "aws_auth" {
-  depends_on = [module.eks]
-
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
-
-  data = {
-    mapRoles = yamlencode([
-      {
-        rolearn  = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
-        username = "jenkins-admin"
-        groups   = ["system:masters"]
-      }
-    ])
-  }
-
-  provider = kubernetes
 }
