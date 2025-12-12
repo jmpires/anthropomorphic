@@ -22,7 +22,7 @@ module "eks" {
       max_size     = 3
       desired_size = 2
 
-      instance_types = ["t3.small"]
+      instance_types = ["t2.small"]
 
       # Required for EKS 1.28+
       ami_type = "AL2023_x86_64_STANDARD"
