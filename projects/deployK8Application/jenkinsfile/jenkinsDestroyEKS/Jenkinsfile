@@ -8,12 +8,22 @@ pipeline {
         KUBECONFIG            = "${WORKSPACE}/kubeconfig"
     }
     stages {
+        stage("Validate AWS Access") {
+            steps {
+                script {
+                    dir('projects/deployK8Application/eks') {
+                        sh 'aws sts get-caller-identity'
+                        sh 'aws eks list-clusters'
+                    }
+                }
+            }
+        }
         stage("Destroy EKS Cluster") {
             steps {
                 script {
                     dir('projects/deployK8Application/eks') {
                         sh 'terraform init'
-                        sh 'terraform destroy -auto-approve'
+                        sh 'terraform destroy -auto-approve -var="cluster_name=jenkins-eks-cluster"'
                     }
                 }
             }
