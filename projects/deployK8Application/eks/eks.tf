@@ -1,3 +1,6 @@
+# -------------------------------------------------
+# EKS Cluster Module
+# -------------------------------------------------
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"
@@ -26,28 +29,22 @@ module "eks" {
   }
 }
 
-# Data sources for cluster access
-data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_name
-}
-
+# -------------------------------------------------
+# Kubernetes Provider pointing to EKS Cluster
+# -------------------------------------------------
 data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_name
+  name = module.eks.cluster_id
 }
 
-# Provider configuration with exec plugin for authentication
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
   cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", module.eks.cluster_name, "--region", "us-east-1"]
-  }
+  token                  = data.aws_eks_cluster_auth.cluster.token
 }
 
-# Give Jenkins role admin access using aws-auth ConfigMap
+# -------------------------------------------------
+# Map Jenkins IAM Role to system:masters
+# -------------------------------------------------
 resource "kubernetes_config_map" "aws_auth" {
   depends_on = [module.eks]
 
@@ -57,7 +54,7 @@ resource "kubernetes_config_map" "aws_auth" {
   }
 
   data = {
-    mapRoles = jsonencode([
+    mapRoles = yamlencode([
       {
         rolearn  = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
         username = "jenkins-admin"
