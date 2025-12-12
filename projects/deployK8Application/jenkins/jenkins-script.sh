@@ -1,12 +1,16 @@
 #!/bin/bash
+# Script name: jenkins-script.sh
+# Description: This script installs Jenkins + required tooling on Amazon Linux 2
+# OS supported: MacOS, Linux
+# Author: Jorge Manuel Pires
+# Contributors: Jorge Manuel Pires
+# Initial Version.Last Updated(updates)	:v20251106.v20251212(5)
+
+# For debugging purposes
+# set -x
 
 # -------------------------------------------------
-# Jenkins Bootstrap Script
-# Purpose: Install Jenkins + required tooling on Amazon Linux 2
-# Principle: Technology shaped by human reasoning—not obscured by it.
-# -------------------------------------------------
-
-# Update system
+# Update package repository and installed packages
 sudo yum update -y
 
 # -------------------------------------------------
@@ -14,7 +18,7 @@ sudo yum update -y
 # Jenkins >= 2.357 requires Java 17 or 21
 # Using Amazon Corretto: official, LTS, and fully supported
 # -------------------------------------------------
-sudo yum install -y java-21-amazon-corretto-headless
+sudo yum install -y java-17-amazon-corretto-headless
 java -version
 
 # -------------------------------------------------
