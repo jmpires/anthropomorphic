@@ -33,6 +33,8 @@ aws s3api put-public-access-block \
   --bucket <bucket_name>  \
   --public-access-block-configuration \
     BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true
+# 4. Verify creation and parameters
+aws s3api get-public-access-block --bucket jmpires-s3-bucket
 
 
 terraform output ec2_public_ip
