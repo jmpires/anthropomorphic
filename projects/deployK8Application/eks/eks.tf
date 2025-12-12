@@ -15,13 +15,14 @@ module "eks" {
     application = "nginx-app"
   }
 
-  # Give Jenkins IAM role full cluster admin access
-  cluster_access_entries = {
-    jenkins_admin = {
-      principal_arn     = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
-      kubernetes_groups = ["system:masters"]
+  # Grant Jenkins IAM Role full cluster admin access
+  map_roles = [
+    {
+      rolearn  = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
+      username = "jenkins-admin"
+      groups   = ["system:masters"]
     }
-  }
+  ]
 
   eks_managed_node_groups = {
     eks_node = {
