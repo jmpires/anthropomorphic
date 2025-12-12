@@ -7,64 +7,60 @@ pipeline {
         KUBECONFIG            = "${WORKSPACE}/kubeconfig"
     }
     stages {
-        stage("Create an EKS Cluster") {
+        stage("Create EKS Cluster") {
             steps {
                 dir('projects/deployK8Application/eks') {
-                    sh '''
-                        export PATH=/usr/local/bin:$PATH
-                        export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                        export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-                        export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+                    sh """
+                        export PATH=/usr/local/bin:\$PATH
+                        export AWS_ACCESS_KEY_ID=\$AWS_ACCESS_KEY_ID
+                        export AWS_SECRET_ACCESS_KEY=\$AWS_SECRET_ACCESS_KEY
+                        export AWS_DEFAULT_REGION=\$AWS_DEFAULT_REGION
 
                         echo "=== Terraform Init ==="
                         terraform init
+
                         echo "=== Terraform Plan ==="
                         terraform plan
+
                         echo "=== Terraform Apply ==="
                         terraform apply -auto-approve
-                    '''
+                    """
                 }
             }
         }
 
         stage("Generate Static Kubeconfig") {
             steps {
-                sh '''
-                    export PATH=/usr/local/bin:$PATH
-                    export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-                    export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-                    export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-                    export KUBECONFIG=$KUBECONFIG
+                sh """
+                    export PATH=/usr/local/bin:\$PATH
+                    export AWS_ACCESS_KEY_ID=\$AWS_ACCESS_KEY_ID
+                    export AWS_SECRET_ACCESS_KEY=\$AWS_SECRET_ACCESS_KEY
+                    export AWS_DEFAULT_REGION=\$AWS_DEFAULT_REGION
+                    export KUBECONFIG=\$KUBECONFIG
 
-                    echo "=== Generating Kubeconfig for Jenkins CI/CD ==="
-                    # Create a kubeconfig that uses static AWS credentials
-                    aws eks update-kubeconfig \
-                        --name jenkins-eks-cluster \
-                        --region $AWS_DEFAULT_REGION \
-                        --kubeconfig $KUBECONFIG \
-                        --alias jenkins-eks \
-                        --role-arn arn:aws:iam::<ACCOUNT_ID>:role/<JENKINS_EKS_ROLE>
-                    
-                    # Optional: verify nodes
-                    kubectl get nodes --kubeconfig $KUBECONFIG
-                '''
+                    echo "=== Generating kubeconfig for Jenkins CI/CD ==="
+                    aws eks update-kubeconfig --name jenkins-eks-cluster --region \$AWS_DEFAULT_REGION --kubeconfig \$KUBECONFIG --alias jenkins-eks
+
+                    echo "=== Verify nodes ==="
+                    kubectl get nodes --kubeconfig \$KUBECONFIG
+                """
             }
         }
 
-        stage("Deploy to EKS") {
+        stage("Deploy Nginx to EKS") {
             steps {
                 dir('projects/deployK8Application/kubernetes') {
-                    sh '''
-                        export PATH=/usr/local/bin:$PATH
-                        export KUBECONFIG=$KUBECONFIG
+                    sh """
+                        export PATH=/usr/local/bin:\$PATH
+                        export KUBECONFIG=\$KUBECONFIG
 
                         echo "=== Deploying Nginx ==="
-                        kubectl apply -f nginx-deployment.yaml --kubeconfig $KUBECONFIG --validate=false
-                        kubectl delete service nginx --ignore-not-found --kubeconfig $KUBECONFIG
-                        kubectl apply -f nginx-service.yaml --kubeconfig $KUBECONFIG
+                        kubectl apply -f nginx-deployment.yaml --kubeconfig \$KUBECONFIG --validate=false
+                        kubectl delete service nginx --ignore-not-found --kubeconfig \$KUBECONFIG
+                        kubectl apply -f nginx-service.yaml --kubeconfig \$KUBECONFIG
 
-                        echo "=== Deployment Complete. LB will be ready in 2-5 minutes ==="
-                    '''
+                        echo "=== Deployment complete. LB will be ready in 2-5 minutes ==="
+                    """
                 }
             }
         }
