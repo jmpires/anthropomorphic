@@ -1,28 +1,36 @@
 pipeline {
     agent any
     environment {
-        AWS_DEFAULT_REGION = "us-east-1"
-        KUBECONFIG = "${WORKSPACE}/kubeconfig"
+        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID') // Only needed if no IAM role
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY') // Only needed if no IAM role
+        AWS_DEFAULT_REGION    = "us-east-1"
+        KUBECONFIG            = "${WORKSPACE}/kubeconfig"
     }
     stages {
-        stage("Create or Update EKS Cluster") {
+        stage("Terraform Init & Apply") {
             steps {
                 dir('projects/deployK8Application/eks') {
                     sh '''
-                        # Ensure Terraform uses latest config
+                        set -e
+                        echo "=== Terraform Init ==="
                         terraform init -reconfigure
+
+                        echo "=== Terraform Plan ==="
                         terraform plan
+
+                        echo "=== Terraform Apply ==="
                         terraform apply -auto-approve
                     '''
                 }
             }
         }
 
-        stage("Generate Fresh Kubeconfig") {
+        stage("Generate Kubeconfig") {
             steps {
                 dir('projects/deployK8Application/kubernetes') {
                     sh '''
-                        echo "=== Generating fresh kubeconfig ==="
+                        set -e
+                        echo "=== Generating kubeconfig ==="
                         rm -f $KUBECONFIG
                         aws eks update-kubeconfig \
                             --name jenkins-eks-cluster \
@@ -30,25 +38,34 @@ pipeline {
                             --kubeconfig $KUBECONFIG \
                             --alias jenkins-eks
 
-                        echo "=== Verify cluster access ==="
+                        echo "=== Verifying Cluster Access ==="
                         kubectl get nodes --kubeconfig $KUBECONFIG
                     '''
                 }
             }
         }
 
-        stage("Deploy Nginx to EKS") {
+        stage("Deploy Nginx") {
             steps {
                 dir('projects/deployK8Application/kubernetes') {
                     sh '''
+                        set -e
                         echo "=== Deploying Nginx ==="
                         kubectl apply -f nginx-deployment.yaml --kubeconfig $KUBECONFIG
                         kubectl delete service nginx --ignore-not-found --kubeconfig $KUBECONFIG
                         kubectl apply -f nginx-service.yaml --kubeconfig $KUBECONFIG
-                        echo "=== Deployment complete. LB will be ready in 2-5 minutes ==="
+                        echo "=== Deployment Complete. Load Balancer will be ready in 2-5 minutes ==="
                     '''
                 }
             }
+        }
+    }
+    post {
+        failure {
+            echo "🚨 Pipeline failed. Check the logs!"
+        }
+        success {
+            echo "✅ Pipeline succeeded!"
         }
     }
 }
