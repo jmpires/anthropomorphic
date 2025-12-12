@@ -26,25 +26,7 @@ module "eks" {
   }
 }
 
-# ----------------------------------------------------------------
-# EKS auth token for Kubernetes provider
-# ----------------------------------------------------------------
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
-}
-
-# ----------------------------------------------------------------
-# Kubernetes provider pointing to the newly created cluster
-# ----------------------------------------------------------------
-provider "kubernetes" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-}
-
-# ----------------------------------------------------------------
-# Map Jenkins IAM Role to Kubernetes system:masters
-# ----------------------------------------------------------------
+# Give Jenkins role admin access using aws-auth ConfigMap
 resource "kubernetes_config_map" "aws_auth" {
   depends_on = [module.eks]
 
@@ -54,7 +36,7 @@ resource "kubernetes_config_map" "aws_auth" {
   }
 
   data = {
-    mapRoles = yamlencode([
+    mapRoles = jsonencode([
       {
         rolearn  = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
         username = "jenkins-admin"
@@ -62,4 +44,20 @@ resource "kubernetes_config_map" "aws_auth" {
       }
     ])
   }
+
+  provider = kubernetes
+}
+
+provider "kubernetes" {
+  host                   = module.eks.cluster_endpoint
+  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
+  token                  = data.aws_eks_cluster_auth.cluster.token
+}
+
+data "aws_eks_cluster" "cluster" {
+  name = module.eks.cluster_name
+}
+
+data "aws_eks_cluster_auth" "cluster" {
+  name = module.eks.cluster_name
 }
