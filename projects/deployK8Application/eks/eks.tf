@@ -16,12 +16,12 @@ module "eks" {
   }
 
   # Give Jenkins IAM role full cluster admin access
-  cluster_access_entries = {
-    jenkins_admin = {
-      principal_arn     = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
-      kubernetes_groups = ["system:masters"]
-    }
-  }
+#  cluster_access_entries = {
+#    jenkins_admin = {
+#      principal_arn     = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
+#      kubernetes_groups = ["system:masters"]
+#    }
+#  }
 
   eks_managed_node_groups = {
     eks_node = {
