@@ -19,7 +19,6 @@ sudo yum update -y
 # Using Amazon Corretto: official, LTS, and fully supported
 # -------------------------------------------------
 sudo yum install -y java-17-amazon-corretto-headless
-java -version
 
 # -------------------------------------------------
 # Install Jenkins from official stable repository
