@@ -1,12 +1,27 @@
-# -------------------------------------------------
+#######################################################
+# eks.tf - Terraform configuration for EKS cluster
+# Version: Terraform AWS EKS Module ~> 19.0
+# Cluster version: 1.28
+#######################################################
+
+# -----------------------------
+# Root-level variables
+# -----------------------------
+variable "cluster_name" {
+  type        = string
+  description = "Name of the EKS cluster"
+  default     = "jenkins-eks-cluster"
+}
+
+# -----------------------------
 # EKS Cluster Module
-# -------------------------------------------------
+# -----------------------------
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+  version = "~> 19.0"
 
-  cluster_name    = "jenkins-eks-cluster"
-  cluster_version = "1.31"
+  cluster_name    = var.cluster_name
+  cluster_version = "1.28"
 
   cluster_endpoint_public_access = true
 
@@ -29,39 +44,20 @@ module "eks" {
   }
 }
 
-# -------------------------------------------------
-# Kubernetes Provider pointing to EKS Cluster
-# -------------------------------------------------
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
+# -----------------------------
+# Optional: Output the cluster info
+# -----------------------------
+output "cluster_id" {
+  value       = module.eks.cluster_id
+  description = "EKS cluster ID"
 }
 
-provider "kubernetes" {
-  host                   = module.eks.cluster_endpoint
-  cluster_ca_certificate = base64decode(module.eks.cluster_certificate_authority_data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
+output "cluster_endpoint" {
+  value       = module.eks.cluster_endpoint
+  description = "EKS cluster endpoint"
 }
 
-# -------------------------------------------------
-# Map Jenkins IAM Role to system:masters
-# -------------------------------------------------
-resource "kubernetes_config_map" "aws_auth" {
-  depends_on = [module.eks]
-
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
-
-  data = {
-    mapRoles = yamlencode([
-      {
-        rolearn  = "arn:aws:iam::682882937469:role/JenkinsEKSRole"
-        username = "jenkins-admin"
-        groups   = ["system:masters"]
-      }
-    ])
-  }
-
-  provider = kubernetes
+output "cluster_security_group_id" {
+  value       = module.eks.cluster_security_group_id
+  description = "Cluster security group ID"
 }
