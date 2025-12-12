@@ -1,23 +1,19 @@
 pipeline {
     agent any
     environment {
-        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID') // Only needed if no IAM role
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY') // Only needed if no IAM role
-        AWS_DEFAULT_REGION    = "us-east-1"
-        KUBECONFIG            = "${WORKSPACE}/kubeconfig"
+        AWS_DEFAULT_REGION = "us-east-1"
+        KUBECONFIG         = "${WORKSPACE}/kubeconfig"
     }
     stages {
-        stage("Terraform Init & Apply") {
+
+        stage("Create or Update EKS Cluster") {
             steps {
                 dir('projects/deployK8Application/eks') {
                     sh '''
-                        set -e
                         echo "=== Terraform Init ==="
                         terraform init -reconfigure
-
                         echo "=== Terraform Plan ==="
                         terraform plan
-
                         echo "=== Terraform Apply ==="
                         terraform apply -auto-approve
                     '''
@@ -25,11 +21,10 @@ pipeline {
             }
         }
 
-        stage("Generate Kubeconfig") {
+        stage("Generate Fresh Kubeconfig") {
             steps {
                 dir('projects/deployK8Application/kubernetes') {
                     sh '''
-                        set -e
                         echo "=== Generating kubeconfig ==="
                         rm -f $KUBECONFIG
                         aws eks update-kubeconfig \
@@ -49,23 +44,14 @@ pipeline {
             steps {
                 dir('projects/deployK8Application/kubernetes') {
                     sh '''
-                        set -e
                         echo "=== Deploying Nginx ==="
                         kubectl apply -f nginx-deployment.yaml --kubeconfig $KUBECONFIG
                         kubectl delete service nginx --ignore-not-found --kubeconfig $KUBECONFIG
                         kubectl apply -f nginx-service.yaml --kubeconfig $KUBECONFIG
-                        echo "=== Deployment Complete. Load Balancer will be ready in 2-5 minutes ==="
+                        echo "=== Deployment complete. Load Balancer ready in 2-5 minutes ==="
                     '''
                 }
             }
-        }
-    }
-    post {
-        failure {
-            echo "🚨 Pipeline failed. Check the logs!"
-        }
-        success {
-            echo "✅ Pipeline succeeded!"
         }
     }
 }
