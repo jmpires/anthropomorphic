@@ -11,7 +11,7 @@ pipeline {
                 dir('projects/deployK8Application/eks') {
                     sh '''
                         echo "=== Terraform Init ==="
-                        terraform init -reconfigure
+                        q
                         echo "=== Terraform Plan ==="
                         terraform plan
                         echo "=== Terraform Apply ==="
