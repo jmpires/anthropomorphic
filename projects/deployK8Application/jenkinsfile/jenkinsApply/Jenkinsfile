@@ -23,7 +23,7 @@ pipeline {
                 script {
                     dir('projects/deployK8Application/kubernetes') {
                         sh '''
-                            aws eks update-kubeconfig \
+                            /usr/local/bin/aws eks update-kubeconfig \
                                 --name jenkins-eks-cluster \
                                 --region $AWS_DEFAULT_REGION \
                                 --kubeconfig $KUBECONFIG
