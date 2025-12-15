@@ -1,30 +1,55 @@
-#!/usr/bin/env groovy
 pipeline {
     agent any
     environment {
-        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "us-east-1"
+        KUBECONFIG         = "${WORKSPACE}/kubeconfig"
     }
     stages {
-        stage("Create an EKS Cluster") {
+
+        stage("Create or Update EKS Cluster") {
             steps {
-                script {
-                    dir('terraform') {
-                        sh "terraform init"
-                        sh "terraform apply -auto-approve"
-                    }
+                dir('projects/deployK8Application/eks') {
+                    sh '''
+                        echo "=== Terraform Init ==="
+                        terraform init -reconfigure
+                        echo "=== Terraform Plan ==="
+                        terraform plan
+                        echo "=== Terraform Apply ==="
+                        terraform apply -auto-approve
+                    '''
                 }
             }
         }
-        stage("Deploy to EKS") {
+
+        stage("Generate Fresh Kubeconfig") {
             steps {
-                script {
-                    dir('kubernetes') {
-                        sh "aws eks update-kubeconfig --name jenkins-eks-cluster"
-                        sh "kubectl apply -f nginx-deployment.yaml"
-                        sh "kubectl apply -f nginx-service.yaml"
-                    }
+                dir('projects/deployK8Application/kubernetes') {
+                    sh '''
+                        echo "=== Generating kubeconfig ==="
+                        rm -f $KUBECONFIG
+                        aws eks update-kubeconfig \
+                            --name jenkins-eks-cluster \
+                            --region $AWS_DEFAULT_REGION \
+                            --kubeconfig $KUBECONFIG \
+                            --alias jenkins-eks
+
+                        echo "=== Verifying Cluster Access ==="
+                        kubectl get nodes --kubeconfig $KUBECONFIG
+                    '''
+                }
+            }
+        }
+
+        stage("Deploy Nginx") {
+            steps {
+                dir('projects/deployK8Application/kubernetes') {
+                    sh '''
+                        echo "=== Deploying Nginx ==="
+                        kubectl apply -f nginx-deployment.yaml --kubeconfig $KUBECONFIG
+                        kubectl delete service nginx --ignore-not-found --kubeconfig $KUBECONFIG
+                        kubectl apply -f nginx-service.yaml --kubeconfig $KUBECONFIG
+                        echo "=== Deployment complete. Load Balancer ready in 2-5 minutes ==="
+                    '''
                 }
             }
         }
