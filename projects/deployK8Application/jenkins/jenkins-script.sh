@@ -46,10 +46,16 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 # -------------------------------------------------
 # Install AWS CLI v2 (required for EKS authentication)
+# 1. Remove AWS CLI v1 if present
+sudo yum remove awscli -y 2>/dev/null || true
+# 2. Download and install AWS CLI v2
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 unzip awscliv2.zip
 sudo ./aws/install --update
-rm -rf awscliv2.zip aws
+rm -rf awscliv2.zip aws/
+# 3. Verify (no symlink needed)
+aws --version  # ✅ Now resolves to v2 via standard PATH
+# sudo ln -s /usr/local/bin/aws /usr/bin/aws
 
 # -------------------------------------------------
 # Optional: verify all tools
