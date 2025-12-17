@@ -1,4 +1,5 @@
 # backend.tf
+
 terraform {
   # Configuring Terraform backend to store state file in an S3 bucket
   backend "s3" {

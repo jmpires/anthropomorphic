@@ -10,5 +10,5 @@ variable "instance_type" {}
 variable "allowed_ip_cidr" {
   description = "Your public IP in CIDR notation (e.g., 203.0.113.5/32)"
   type        = string
-  default     = "0.0.0.0/0" # ⚠️ Only for demo or development; override in production!
+  default     = "0.0.0.0/0" # ⚠️ Only for demo or development; override in production! ⚠️ 
 }

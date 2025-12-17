@@ -1,21 +1,11 @@
-#######################################################
-# eks.tf - Terraform configuration for EKS cluster
-# Version: Terraform AWS EKS Module ~> 19.0
-# Cluster version: 1.28
-#######################################################
+# eks.tf
 
-# -----------------------------
-# Root-level variables
-# -----------------------------
 variable "cluster_name" {
   type        = string
   description = "Name of the EKS cluster"
   default     = "jenkins-eks-cluster"
 }
 
-# -----------------------------
-# EKS Cluster Module
-# -----------------------------
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.0"
@@ -44,9 +34,6 @@ module "eks" {
   }
 }
 
-# -----------------------------
-# Optional: Output the cluster info
-# -----------------------------
 output "cluster_id" {
   value       = module.eks.cluster_id
   description = "EKS cluster ID"
