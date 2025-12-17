@@ -11,7 +11,7 @@ pipeline {
         stage("Destroy EC2 jenkins-server Instance") {
             steps {
                 script {
-                    dir('projects/deployK8Application/eks') {
+                    dir('projects/deployK8Application/jenkins') {
                         sh 'terraform init'
                         sh 'terraform destroy -auto-approve'
                     }
