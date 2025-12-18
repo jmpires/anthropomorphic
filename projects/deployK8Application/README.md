@@ -12,11 +12,17 @@ deployK8Application/
 eks/
 
 backend.tf             # Remote state backend for Terraform using S3
+
 eks.tf                 # EKS cluster and managed node group configuration
+
 output.tf              # Exports VPC public subnet IDs for use by dependent modules or external references
+
 terraform.tfvars       # Environment-specific network CIDR definitions for VPC and subnets
+
 variables.tf           # Input variable declarations for VPC and subnet CIDR blocks used in EKS networking
+
 versions.tf            # Terraform version constraints and required provider declarations for AWS
+
 vpc.tf                 # VPC, subnets, and networking configuration for EKS cluster
 
 jenkins/
