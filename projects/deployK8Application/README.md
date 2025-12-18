@@ -10,7 +10,9 @@ deployK8Application/
 
 ├── .github/
 
+
 │   └── deploy-to-eks.yaml     # GitHub Actions workflow for automated EKS deployment
+
 
 ├── eks/
 
