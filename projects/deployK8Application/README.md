@@ -7,7 +7,6 @@ Read the full article on Medium: [101 Setting Up a Kubernetes application using 
 ### 📋 Code Structure
 
 deployK8Application/
-
 ├── .github/
 
 
