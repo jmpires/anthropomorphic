@@ -1,7 +1,7 @@
 # 📘 **Deploying a K8 application using Terraform, EKS Cluster and Jenkins**
 
 ### 📖 Article Link
-[WIP] - Read the full article on Medium: [101 Setting Up a User Defined Kubernetes Cluster on AWS using Ubuntu Server and Terraform](https://medium.com/p/bfe34a6f1125/edit)
+Read the full article on Medium: [101 Setting Up a Kubernetes application using Terraform, EKS Cluster, Jenkins and GitHub actions](https://medium.com/towards-aws/101-setting-up-a-kubernetes-application-using-terraform-eks-cluster-github-actions-and-jenkins-bfe34a6f1125)
 
 
 ### 📋 Code Structure - Jenkins Server
