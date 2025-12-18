@@ -6,10 +6,11 @@ Read the full article on Medium: [101 Setting Up a Kubernetes application using 
 
 ### 📋 Code Structure
 
-deployK8Application/
+**deployK8Application/**
+
 .github/deploy-to-eks.yaml     # GitHub Actions workflow for automated EKS deployment
 
-eks/
+**eks/**
 
 backend.tf             # Remote state backend for Terraform using S3
 
