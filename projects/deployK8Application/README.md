@@ -7,9 +7,13 @@ Read the full article on Medium: [101 Setting Up a Kubernetes application using 
 ### 📋 Code Structure
 
 deployK8Application/
+
 ├── .github/
+
 │   └── deploy-to-eks.yaml     # GitHub Actions workflow for automated EKS deployment
+
 ├── eks/
+
 │   ├── backend.tf             # Remote state backend for Terraform using S3
 │   ├── eks.tf                 # EKS cluster and managed node group configuration
 │   ├── output.tf              # Exports VPC public subnet IDs for use by dependent modules or external references
