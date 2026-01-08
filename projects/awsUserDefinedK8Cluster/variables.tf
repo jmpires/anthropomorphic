@@ -104,7 +104,7 @@ variable "nodeport_range_start" {
 }
 
 variable "nodeport_range_end" {
-  description = "End of NodePort range" 
+  description = "End of NodePort range"
   type        = number
   default     = 32767
 }

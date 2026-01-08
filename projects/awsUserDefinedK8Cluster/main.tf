@@ -116,11 +116,11 @@ resource "aws_security_group" "k8SecurityGroup" {
   }
   # NodePort range (for testing services, e.g. nginx)
   ingress {
-  from_port   = var.nodeport_range_start
-  to_port     = var.nodeport_range_end
-  protocol    = "tcp"
-  cidr_blocks = ["0.0.0.0/0"]
-}
+    from_port   = var.nodeport_range_start
+    to_port     = var.nodeport_range_end
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 
   # Outbound traffic 
   egress {
@@ -141,7 +141,7 @@ resource "aws_instance" "k8s_node" {
   instance_type          = each.value.instance_type
   key_name               = var.aws_key_pair_id
   vpc_security_group_ids = [aws_security_group.k8SecurityGroup.id]
-  subnet_id              = aws_subnet.k8s_workers[0].id  # Use first subnet ID for all instances
+  subnet_id              = aws_subnet.k8s_workers[0].id # Use first subnet ID for all instances
 
   root_block_device {
     volume_size           = 20 # Increased for Kubernetes (10GB is often too small)
