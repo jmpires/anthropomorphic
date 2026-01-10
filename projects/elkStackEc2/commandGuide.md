@@ -50,9 +50,3 @@ kubectl apply -f kibana-svc.yaml
 kubectl get svc
 
 minikube service kibana-service
-
-
-
-
-
-
