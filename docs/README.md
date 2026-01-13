@@ -80,7 +80,9 @@ You must have:
 **EKS**
 
 🔗 [Elasticsearch Guide](https://www.elastic.co/guide/en/elasticsearch/reference/7.8/index.html)
+
 🔗 [Logstash Reference](https://www.elastic.co/guide/en/logstash/7.8/index.html)
+
 🔗 [Kibana Guide](https://www.elastic.co/guide/en/kibana/7.8/index.html)
 
 **GitHub**
