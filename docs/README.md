@@ -23,7 +23,6 @@ You must have:
 🔗 [AWS fundamentals: launching EC2 instances, VPCs, IAM roles, and security groups.](https://aws.amazon.com/training/learn-about/cloud-practitioner)
 🔗 [Set up your AWS account and credentials (AWS Official Guide).](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
-
 **Bash scripting**
 
 🔗 [Bash scripting](https://tldp.org/LDP/Bash-Beginners-Guide/html/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
@@ -34,36 +33,29 @@ You must have:
 🔗 [Logstash Reference](https://www.elastic.co/guide/en/logstash/7.8/index.html)
 🔗 [Kibana Guide](https://www.elastic.co/guide/en/kibana/7.8/index.html)
 
-
 **GitHub Actions**
 
 🔗 [EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
-
 
 **Git & GitHub basics**
 
 🔗 [Git & GitHub basics](https://skills.github.com/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
 
-
 **GitHub Actions**
 
 🔗 [GitHub Actions](https://docs.github.com/en/actions/get-started/understand-github-actions)
-
 
 **Jenkins Handbook**
 
 🔗 [Jenkins Handbook](https://www.jenkins.io/doc/book/?spm=a2ty_o01.29997173.0.0.10495171PK2nWS#jenkins-handbook)
 
-
 **jq Manual**
 
 🔗 [jq Manual](https://jqlang.org/manual)
 
-
 **Kubernetes**
 
 🔗 [Kubernetes concepts](https://kubernetes.io/docs/tutorials/kubernetes-basics)
-
 
 **Terraform**
 
