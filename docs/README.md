@@ -16,6 +16,7 @@ You must have:
 - Sufficient permissions (e.g., `AdministratorAccess` or a custom policy granting actions for **EC2, EKS, IAM, VPC, S3, and CloudWatch**)
 - [AWS CLI configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) locally (`aws configure`)
 
+#
 ### 📋 Knowledge & Experience
 
 **AWS**
