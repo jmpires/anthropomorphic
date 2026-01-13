@@ -27,7 +27,7 @@ You must have:
 
 🔗 [Bash scripting](https://tldp.org/LDP/Bash-Beginners-Guide/html/?spm=a2ty_o01.29997173.0.0.3cc2c92115XL0c)
 
-**EKS**
+**EKS Stack**
 
 🔗 [Elasticsearch Guide](https://www.elastic.co/guide/en/elasticsearch/reference/7.8/index.html)
 🔗 [Logstash Reference](https://www.elastic.co/guide/en/logstash/7.8/index.html)
@@ -69,7 +69,7 @@ You must have:
 
 🔗 [AWS CLI v2.13 or later](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
 
-**EKS**
+**EKS Stack**
 
 🔗 [Elasticsearch Guide](https://www.elastic.co/guide/en/elasticsearch/reference/7.8/index.html)
 🔗 [Logstash Reference](https://www.elastic.co/guide/en/logstash/7.8/index.html)
