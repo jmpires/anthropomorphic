@@ -1,7 +1,7 @@
-# 📘 **Implement Deployment Strategies using Kubernetes on AWS EC2**
+# 📘 **Implementing Production-Grade Deployment Strategies on Kubernetes (EC2)**
 
 ### 📖 Article Link
-Read the full article on Medium: [101 Implement Deployment Strategies using Kubernetes on AWS EC2](...)
+Read the full article on Medium: [Implementing Production-Grade Deployment Strategies on Kubernetes (EC2)](...)
 
 
 ### 📋 Code Structure
@@ -12,5 +12,5 @@ Read the full article on Medium: [101 Implement Deployment Strategies using Kube
 ├── .../
 │   ├── ...                        # 
 
-└── README.md                      # Project overview, prerequisites, and quick start instructions~
+└── README.md                      # Project overview, prerequisites, and quick start instructions
 ```
