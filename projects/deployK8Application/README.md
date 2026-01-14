@@ -10,6 +10,7 @@ Read the full article on Medium: [101 Setting Up a Kubernetes application using 
 deployK8Application/
 ├── .github/
 │   └── deploy-to-eks.yaml     # GitHub Actions workflow for automated EKS deployment
+├── docs/                      # Related documentation & help files
 ├── eks/
 │   ├── backend.tf             # Remote state backend for Terraform using S3
 │   ├── eks.tf                 # EKS cluster and managed node group configuration
