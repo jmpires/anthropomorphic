@@ -5,10 +5,8 @@ region_id    = "us-east-1"
 
 # --- Kubernetes cluster size ---
 total_instances             = 2
-#control_plane_instance_type = "t3.small"
-control_plane_instance_type = "t3.large"
-#worker_instance_type        = "t3.small"
-worker_instance_type        = "t3.xlarge"
+control_plane_instance_type = "t3.small"
+worker_instance_type        = "t3.medium"
 
 # --- (Optional) Override defaults if needed ---
 # default_ami                 = "ami-0bbdd8c17ed981ef9"
