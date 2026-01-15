@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-rolling-update
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: app-rolling-update
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: 
+      maxUnavailable: 80%
+      maxSurge: 10%
+  template:
+    metadata:
+      labels:
+        app: app-rolling-update
+    spec:
+      containers:
+      - name: myapp
+        image: nginx:latest
+        args:
+          - /bin/sh
+          - -c
+          - "echo '<h1>Welcome to Nginx and We are learning Rolling Update Strategy in Kubernetes</h1><br><h2>This is Version 3</h2>' > /usr/share/nginx/html/index.html && nginx -g 'daemon off;'"
+        ports:
+        - containerPort: 80
