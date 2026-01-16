@@ -1,7 +1,7 @@
 # 📘 **Deploying the ELK Stack on Self-Managed Kubernetes (AWS EC2)**
 
 ### 📖 Article Link
-Read the full article on Medium: [Deploying the ELK Stack on Self-Managed Kubernetes (AWS EC2): A Hands-On Guide](...)
+Read the full article on Medium: [Deploying the ELK Stack on Self-Managed Kubernetes (AWS EC2): A Hands-On Guide](https://medium.com/towards-aws/deploying-the-elk-stack-on-self-managed-kubernetes-aws-ec2-a-hands-on-guide-1c6759233a0e)
 
 
 ### 📋 Code Structure
