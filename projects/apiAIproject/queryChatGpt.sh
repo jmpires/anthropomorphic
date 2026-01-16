@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-export API_KEY="$(cat aiApiKey.pem)"
+export API_KEY="$(cat chatGptApiKey.pem)"
 
 if [[ -z "${API_KEY:-}" ]]; then
   echo "ERROR: API_KEY is not set"
@@ -42,5 +42,5 @@ REQUEST_JSON="$(jq -n --argjson incident "$(cat "$INPUT_FILE")" '
 
 curl -sS https://api.openai.com/v1/responses \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Authorization: Bearer $API_KEY" \
   -d "$REQUEST_JSON"
