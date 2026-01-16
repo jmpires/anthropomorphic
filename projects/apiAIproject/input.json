@@ -1,0 +1,6 @@
+{
+  "ticket_id": "INC-10492",
+  "service": "payments-api",
+  "description": "Customers report intermittent 502 errors during checkout. Errors spike during peak traffic. No recent deploys.",
+  "region": "eu-west-1"
+}

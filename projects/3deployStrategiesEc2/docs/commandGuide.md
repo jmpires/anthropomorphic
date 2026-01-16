@@ -1,12 +1,6 @@
-# Production environment
-./deployNodes.sh node-0 ./k8ControlPlane.sh
-./deployNodes.sh node-1 ./k8WorkerNode.sh
-./joinWorkers.sh
 
-# miniKube
-minikube start --cpus 4 --memory 8192
-kubectl cluster-info
-kubectl cluster-info dump
+export OPENAI_API_KEY="$(cat aiApiKey.pem)"
 
-minikube ip
+./queryAI.sh input.json
 
+./queryAI.sh input.json | jq -r '.output[0].content[0].text'
