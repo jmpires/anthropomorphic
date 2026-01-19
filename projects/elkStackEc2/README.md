@@ -20,5 +20,5 @@ elkStackEc2/
 │   ├── logstash-svc.yml           # NodePort service exposing Logstash input endpoint (port 5044) for Filebeat
 │   └── logstash.conf              # Logstash pipeline: ingest Filebeat logs, parse JSON, enrich with GeoIP, output to Elasticsearch
 ├── tools/                         # A set of comprehensive tools for automation and utility functions
-└── README.md                      # Project overview, prerequisites, and quick start instructions~
+└── README.md                      # Project overview, prerequisites, and quick start instructions.
 ```
