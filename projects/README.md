@@ -14,6 +14,6 @@ projects/
 ├── awsUserDefinedK8Cluster/        # Setting Up a User Defined Kubernetes Cluster on AWS using Ubuntu Server and Terraform.
 ├── deployK8Application/            # Setting Up a Kubernetes application using Terraform, EKS Cluster, GitHub and Jenkins.
 ├── elkStackEc2/                    # Deploying ELK Stack using Self-Managed Kubernetes Cluster on AWS EC2.
-├── tools/                          # A set of comprehensive tools for automation and utility functions.
+├── tools/                          # Shared automation and utility scripts used across all projects.
 └── README.md                       # You are here 🚀
 ```
