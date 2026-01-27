@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-API_KEY="$(tr -d ' \n\r' < preplexityApiKey.pem)"
+API_KEY="$(tr -d ' \n\r' < perplexityApiKey.pem)"
 
 if [[ -z "${API_KEY:-}" ]]; then
   echo "ERROR: API_KEY is not set"
