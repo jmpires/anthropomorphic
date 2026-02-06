@@ -30,7 +30,7 @@ You must have:
 
 **Deployment Strategies**
 
-**EKSs**
+**EKS**
 
 🔗 [EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
 
