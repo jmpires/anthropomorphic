@@ -30,15 +30,15 @@ You must have:
 
 **Deployment Strategies**
 
+**EKSs**
+
+🔗 [EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
+
 **EKS Stack**
 
 🔗 [Elasticsearch Guide](https://www.elastic.co/guide/en/elasticsearch/reference/7.8/index.html)
 🔗 [Logstash Reference](https://www.elastic.co/guide/en/logstash/7.8/index.html)
 🔗 [Kibana Guide](https://www.elastic.co/guide/en/kibana/7.8/index.html)
-
-**GitHub Actions**
-
-🔗 [EKS](https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html)
 
 **Git & GitHub basics**
 
