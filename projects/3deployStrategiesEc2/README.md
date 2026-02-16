@@ -1,7 +1,7 @@
 # 📘 **Implementing Production-Grade Deployment Strategies on Kubernetes (EC2)**
 
 ### 📖 Article Link
-Read the full article on Medium: [Implementing Production-Grade Deployment Strategies on Kubernetes (EC2)](...)
+Read the full article on Medium: [Implementing Production-Grade Deployment Strategies on Kubernetes (EC2)](https://medium.com/aws-in-plain-english/implementing-production-grade-deployment-strategies-on-kubernetes-ec2-abcf7195112c)
 
 
 ### 📋 Code Structure
