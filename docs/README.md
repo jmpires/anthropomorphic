@@ -1,7 +1,7 @@
 ## Prerequisites
 
 
-### 📋 AWS Account & Permissions
+## AWS Account & Permissions
 
 You must have:
 - An active AWS account ([sign up](https://aws.amazon.com/))
@@ -17,7 +17,7 @@ You must have:
 - [AWS CLI configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) locally (`aws configure`)
 
 #
-### 📋 Knowledge & Experience
+## Required Knowledge
 
 **AWS**
 
@@ -68,7 +68,7 @@ TBD
 
 #
 
-### 📋 Tools & Versions
+## Tools & Versions
 
 **AWS**
 
