@@ -7,7 +7,7 @@ You must have:
 🔗 [Set up your AWS account and credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) (AWS Official Guide)  
 ⚠️ **DO NOT use Root account credentials. Create an IAM user with appropriate permissions for programmatic access.**
 
-⚠️ The lab uses EKS and EC2 resources that **are not covered by the AWS Free Tier** - always run `terraform destroy` to clean up when finished.
+⚠️ The lab could use resources that **are not covered by the AWS Free Tier** - always run `terraform destroy` to clean up when finished.
 
 - Programmatic access via an IAM user (not root) with access key and secret
 - Sufficient permissions (e.g., `AdministratorAccess` or a custom policy granting actions for **EC2, EKS, IAM, VPC, S3, and CloudWatch**)
