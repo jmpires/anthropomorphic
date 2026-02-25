@@ -1,6 +1,3 @@
-## Prerequisites
-
-
 ## AWS Account & Permissions
 
 You must have:
