@@ -14,7 +14,7 @@ You must have:
 - [AWS CLI configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html) locally (`aws configure`)
 
 
-
+---
 ## Required Knowledge
 
 **AWS**
