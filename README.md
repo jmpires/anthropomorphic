@@ -29,7 +29,7 @@ I work with a variety of technologies and frameworks, including but not limited 
 ## 📂 Repository Structure
 ```
 Anthropomorphic/
-│-- docs/               # Learning Notes & Documentation
+│-- docs/               # Prerequisites & Documentation
 │-- projects/           # Projects
 │-- README.md           # You are here 🚀
 ```

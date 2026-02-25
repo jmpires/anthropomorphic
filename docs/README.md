@@ -1,4 +1,4 @@
-# 📖 **Learning Logs**
+## Prerequisites
 
 
 ### 📋 AWS Account & Permissions
