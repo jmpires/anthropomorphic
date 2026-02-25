@@ -5,7 +5,7 @@ You must have:
 
 
 🔗 [Set up your AWS account and credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html) (AWS Official Guide)  
-⚠️ **Do not use root account credentials.**  ⚠️
+⚠️ **Root account credentials must never be used for day-to-day or programmatic access. Create an IAM user with appropriate permissions instead.**
 
 ⚠️ The lab uses EKS and EC2 resources that **are not covered by the AWS Free Tier** - always run `terraform destroy` to clean up when finished.
 
