@@ -15,7 +15,6 @@ You must have:
 
 
 ---
-
 ## Required Knowledge
 
 **AWS**
@@ -66,6 +65,7 @@ TBD
 🔗 [Terraform basics](https://developer.hashicorp.com/terraform/tutorials)
 
 
+---
 ## Tools & Versions
 
 **AWS**
