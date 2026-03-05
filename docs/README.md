@@ -1,3 +1,8 @@
+# ⚠️ Operational Information
+This document is maintained solely for backward compatibility with previous articles and will no longer receive updates. For current and updated prerequisite information, please refer to the dedicated `prerequisites.md` file.
+
+---
+
 ## AWS Account & Permissions
 
 You must have:
