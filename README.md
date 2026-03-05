@@ -31,6 +31,7 @@ I work with a variety of technologies and frameworks, including but not limited 
 Anthropomorphic/
 │-- docs/               # Prerequisites & Documentation
 │-- projects/           # Projects
+│-- references/         # Further Reading
 │-- README.md           # You are here 🚀
 ```
 
