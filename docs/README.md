@@ -1,2 +1,2 @@
 # ⚠️ Operational Information
-This link is maintained solely for backward compatibility with previous articles and will no longer receive updates. For current and updated prerequisite information, please refer to the dedicated `prerequisites.md` file.
+This link is maintained solely for backward compatibility with previous articles and will no longer receive updates. For current and updated prerequisite information, please refer to the dedicated [prerequisites.md](https://github.com/jmpires/anthropomorphic/blob/main/docs/prerequisites.md) file.
