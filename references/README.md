@@ -1,5 +1,11 @@
+# References  
 
+Welcome to the **References** repository.  
+This repository contains all the hands-on code and working implementations from my Medium articles—where I solve real production problems, optimize workflows, and turn complex tasks into efficient, reliable solutions.
 
+--- 
+
+## 📂 Folder Structure
 
 Anthropomorphic/
 │-- docs/               # Prerequisites & Documentation
