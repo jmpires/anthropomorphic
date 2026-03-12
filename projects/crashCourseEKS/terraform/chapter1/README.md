@@ -9,7 +9,7 @@ Read the full article on Medium: [Build an Amazon EKS Cluster with Terraform | E
 ```
 crashCourseEKS/
 ├── docs/                     # Architecture notes, diagrams, and operational guidance
-├── terraform/
+└── terraform/
     └── chapter1
         ├── backend.tf        # Remote Terraform state backend stored in S3 for centralized state management and collaboration.
         ├── eks.tf            # Defines the Amazon EKS cluster, managed node groups, and admin access configuration. 
