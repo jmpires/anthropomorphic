@@ -1,7 +1,7 @@
 # 📘 **Build an Amazon EKS Cluster with Terraform | EKS Crash Course (Chapter 1)**
 
 ### 📖 Article Link
-Read the full article on Medium: [Build an Amazon EKS Cluster with Terraform | EKS Crash Course (Chapter 1)](<>)
+Read the full article on Medium: [Build an Amazon EKS Cluster with Terraform | EKS Crash Course (Chapter 1)](<https://medium.com/towards-aws/build-an-amazon-eks-cluster-with-terraform-eks-crash-course-chapter-1-bd35a861d1ef>)
 
 
 ### 📋 Code Structure
