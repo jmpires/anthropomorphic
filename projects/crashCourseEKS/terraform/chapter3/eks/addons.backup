@@ -1,0 +1,31 @@
+# addons.tf
+
+# Wait for the cluster to be ready before applying addons
+data "aws_eks_addon_version" "current" {
+  for_each = {
+    coredns                = {}
+    kube-proxy             = {}
+    vpc-cni                = {}
+    aws-ebs-csi-driver     = {}
+    eks-pod-identity-agent = {}
+  }
+  addon_name         = each.key
+  kubernetes_version = var.cluster_version
+  most_recent        = true
+}
+
+resource "aws_eks_addon" "addons" {
+  for_each = data.aws_eks_addon_version.current
+
+  cluster_name                = module.eks.cluster_name
+  addon_name                  = each.key
+  addon_version               = each.value.version # Pins version to match cluster
+  resolve_conflicts_on_update = "OVERWRITE"
+  resolve_conflicts_on_create = "OVERWRITE"
+
+  # Attach IAM Role for EBS CSI Driver
+  service_account_role_arn = try(module.eks.eks_managed_node_groups["default"].iam_role_arn, null)
+  
+  # Explicit dependency
+  depends_on = [module.eks]
+}
