@@ -47,6 +47,6 @@ crashCourseEKS/
 │   │   │   ├── terraform.tfvars    # Defines environment-specific deployment values.
 │   │   │   ├── variables.tf        # Declares and validates EKS deployment variables.
 │   │   │   ├── versions.tf         # Specifies Terraform and provider version constraints.
-│   │   │   ├── vpc.tf              # Provisions the VPC, subnets, routing, and Kubernetes network tagging.
+│   │   │   └── vpc.tf              # Provisions the VPC, subnets, routing, and Kubernetes network tagging.
 └── README.md                       # Project overview, prerequisites, and quick start instructions.
 ```
