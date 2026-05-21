@@ -7,7 +7,7 @@ Read the full article set on Medium:
 
 [Upgrade Amazon EKS Using the AWS CLI: EKS Crash Course (Chapter 2)](https://medium.com/towards-aws/upgrade-an-amazon-eks-cluster-using-the-aws-cli-eks-crash-course-chapter-2-d8f43ad530f1)
 
-[Upgrade Amazon EKS Using Terraform: EKS Crash Course (Chapter 3)](<LINK>)
+[Upgrade Amazon EKS Using Terraform: EKS Crash Course (Chapter 3)](https://medium.com/towards-aws/upgrade-an-amazon-eks-cluster-using-terraform-eks-crash-course-chapter-3-6c73f717d3c6)
 
 
 ### 📋 Code Structure
