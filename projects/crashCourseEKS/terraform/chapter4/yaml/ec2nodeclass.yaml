@@ -1,0 +1,24 @@
+apiVersion: karpenter.k8s.aws/v1
+kind: EC2NodeClass
+metadata:
+  name: default
+spec:
+  amiFamily: AL2023
+
+  # IAM role used by Karpenter-provisioned worker nodes.
+  # Use the IAM role created for the EKS managed node group.
+  role: dev-eks-cluster-node-role-20260625132432765000000001
+
+  amiSelectorTerms:
+    - alias: al2023@latest
+
+  subnetSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: dev-eks-cluster
+
+  securityGroupSelectorTerms:
+    - tags:
+        karpenter.sh/discovery: dev-eks-cluster
+  
+  tags:
+    karpenter.sh/discovery: dev-eks-cluster

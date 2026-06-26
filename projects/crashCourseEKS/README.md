@@ -36,17 +36,36 @@ crashCourseEKS/
 │   │   │   ├── storage.tf          # Remote Terraform state backend stored in S3 for centralized state management + dynamo db lock.
 │   │   │   ├── terraform.tfvars    # Defines environment-specific values.
 │   │   │   └── variables.tf        # Declares and validates input variables for AWS, EKS, node groups, and VPC configuration.
-│   │   ├── eks
-│   │   │   ├── addons.tf           # Manages core EKS add-ons and conflict resolution behavior.
-│   │   │   ├── backend.hcl         # Supplies backend configuration parameters during Terraform initialization.
-│   │   │   ├── backend.tf          # Defines remote state backend integration with S3 and DynamoDB locking.
-│   │   │   ├── eks.tf              # Defines the EKS control plane, managed node groups, and lifecycle settings.
-│   │   │   ├── main.tf             # Retrieves caller identity and defines shared local values.
-│   │   │   ├── output.tf           # Exposes cluster metadata and infrastructure outputs.
-│   │   │   ├── providers.tf        # Configures AWS and Kubernetes providers with EKS authentication.
-│   │   │   ├── terraform.tfvars    # Defines environment-specific deployment values.
-│   │   │   ├── variables.tf        # Declares and validates EKS deployment variables.
-│   │   │   ├── versions.tf         # Specifies Terraform and provider version constraints.
-│   │   │   └── vpc.tf              # Provisions the VPC, subnets, routing, and Kubernetes network tagging.
+│   │   └── eks
+│   │       ├── addons.tf           # Manages core EKS add-ons and conflict resolution behavior.
+│   │       ├── backend.hcl         # Supplies backend configuration parameters during Terraform initialization.
+│   │       ├── backend.tf          # Defines remote state backend integration with S3 and DynamoDB locking.
+│   │       ├── eks.tf              # Defines the EKS control plane, managed node groups, and lifecycle settings.
+│   │       ├── main.tf             # Retrieves caller identity and defines shared local values.
+│   │       ├── output.tf           # Exposes cluster metadata and infrastructure outputs.
+│   │       ├── providers.tf        # Configures AWS and Kubernetes providers with EKS authentication.
+│   │       ├── terraform.tfvars    # Defines environment-specific deployment values.
+│   │       ├── variables.tf        # Declares and validates EKS deployment variables.
+│   │       ├── versions.tf         # Specifies Terraform and provider version constraints.
+│   │       └── vpc.tf              # Provisions the VPC, subnets, routing, and Kubernetes network tagging.
+│   │   
+│   └── chapter4
+│       ├── tools
+│       │   └── oneStep.sh          # Automates the end-to-end deployment, configuration, and validation of the EKS and Karpenter environment.
+│       ├── yaml
+│       │   ├── ec2nodeclass.yaml   # Defines the Karpenter EC2NodeClass for provisioning EC2 instances.
+│       │   ├── inflate.yaml        # Deploys a sample workload to trigger Karpenter node provisioning.
+│       │   └── nodepool.yaml       # Defines the Karpenter NodePool for dynamic node provisioning.
+│       └── terraform
+│           ├── backend.tf          # Remote Terraform state backend stored in S3 for centralized state management and collaboration.
+│           ├── eks.tf              # Defines the Amazon EKS cluster, managed node groups, and admin access configuration.
+│           ├── karpenter-irsa.tf    
+│           ├── main.tf             # Defines required providers and AWS provider configuration.
+│           ├── output.tf           # Exposes key EKS and networking outputs for external use.
+│           ├── README.md           # Project overview, prerequisites, and quick start instructions.
+│           ├── terraform.tfvars    # Defines environment-specific variables for AWS, EKS, and VPC configuration.
+│           ├── variables.tf        # Declares and validates input variables for AWS, EKS, node groups, and VPC configuration.
+│           └── vpc.tf              # Creates the VPC, subnets, and networking required for the EKS cluster.
+│     
 └── README.md                       # Project overview, prerequisites, and quick start instructions.
 ```
