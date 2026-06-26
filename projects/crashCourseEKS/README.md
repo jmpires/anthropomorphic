@@ -9,6 +9,8 @@ Read the full article set on Medium:
 
 [Upgrade Amazon EKS Using Terraform: EKS Crash Course (Chapter 3)](https://medium.com/towards-aws/upgrade-an-amazon-eks-cluster-using-terraform-eks-crash-course-chapter-3-6c73f717d3c6)
 
+[Rethinking Node Scaling in Amazon EKS with Karpenter: EKS Crash Course (Chapter 4))](<TO BE UPDATED>)
+
 
 ### 📋 Code Structure
 
