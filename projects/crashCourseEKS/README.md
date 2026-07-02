@@ -1,5 +1,6 @@
 # 📘 **Amazon EKS Crash Course: Cluster Upgrades and Lifecycle Management**
 
+
 ### 📖 Article Link
 Read the full article set on Medium:
 
@@ -9,7 +10,7 @@ Read the full article set on Medium:
 
 [Upgrade Amazon EKS Using Terraform: EKS Crash Course (Chapter 3)](https://medium.com/towards-aws/upgrade-an-amazon-eks-cluster-using-terraform-eks-crash-course-chapter-3-6c73f717d3c6)
 
-[Rethinking Node Scaling in Amazon EKS with Karpenter: EKS Crash Course (Chapter 4))](<TO BE UPDATED>)
+[Rethinking Node Scaling in Amazon EKS with Karpenter (Chapter 4)](<https://medium.com/towards-aws/rethinking-node-scaling-in-amazon-eks-with-karpenter-eks-crash-course-chapter-4-f482bde62def>)
 
 
 ### 📋 Code Structure
@@ -50,24 +51,26 @@ crashCourseEKS/
 │   │       ├── variables.tf        # Declares and validates EKS deployment variables.
 │   │       ├── versions.tf         # Specifies Terraform and provider version constraints.
 │   │       └── vpc.tf              # Provisions the VPC, subnets, routing, and Kubernetes network tagging.
-│   │   
-│   └── chapter4
-│       ├── tools
-│       │   └── oneStep.sh          # Automates the end-to-end deployment, configuration, and validation of the EKS and Karpenter environment.
-│       ├── yaml
-│       │   ├── ec2nodeclass.yaml   # Defines the Karpenter EC2NodeClass for provisioning EC2 instances.
-│       │   ├── inflate.yaml        # Deploys a sample workload to trigger Karpenter node provisioning.
-│       │   └── nodepool.yaml       # Defines the Karpenter NodePool for dynamic node provisioning.
-│       └── terraform
-│           ├── backend.tf          # Remote Terraform state backend stored in S3 for centralized state management and collaboration.
-│           ├── eks.tf              # Defines the Amazon EKS cluster, managed node groups, and admin access configuration.
-│           ├── karpenter-irsa.tf    
-│           ├── main.tf             # Defines required providers and AWS provider configuration.
-│           ├── output.tf           # Exposes key EKS and networking outputs for external use.
-│           ├── README.md           # Project overview, prerequisites, and quick start instructions.
-│           ├── terraform.tfvars    # Defines environment-specific variables for AWS, EKS, and VPC configuration.
-│           ├── variables.tf        # Declares and validates input variables for AWS, EKS, node groups, and VPC configuration.
-│           └── vpc.tf              # Creates the VPC, subnets, and networking required for the EKS cluster.
-│     
+│   │ 
+│   ├── chapter4
+│   │   ├── tools
+│   │   │   └── oneStep.sh          # Automates the end-to-end deployment, configuration, and validation of the EKS and Karpenter environment.
+│   │   ├── yaml
+│   │   │   ├── ec2nodeclass.yaml   # Defines the Karpenter EC2NodeClass for provisioning EC2 instances.
+│   │   │   ├── inflate.yaml        # Deploys a sample workload to trigger Karpenter node provisioning.
+│   │   │   └── nodepool.yaml       # Defines the Karpenter NodePool for dynamic node provisioning.
+│   │   └── terraform
+│   │       ├── backend.tf          # Remote Terraform state backend stored in S3 for centralized state management and collaboration.
+│   │       ├── eks.tf              # Defines the Amazon EKS cluster, managed node groups, and admin access configuration.
+│   │       ├── karpenter-irsa.tf    
+│   │       ├── main.tf             # Defines required providers and AWS provider configuration.
+│   │       ├── output.tf           # Exposes key EKS and networking outputs for external use.
+│   │       ├── README.md           # Project overview, prerequisites, and quick start instructions.
+│   │       ├── terraform.tfvars    # Defines environment-specific variables for AWS, EKS, and VPC configuration.
+│   │       ├── variables.tf        # Declares and validates input variables for AWS, EKS, node groups, and VPC configuration.
+│   │       └── vpc.tf              # Creates the VPC, subnets, and networking required for the EKS cluster.                   
+│   │
+│   ├── chapter5 ⚠️  WIP ⚠️ 
+│
 └── README.md                       # Project overview, prerequisites, and quick start instructions.
 ```
