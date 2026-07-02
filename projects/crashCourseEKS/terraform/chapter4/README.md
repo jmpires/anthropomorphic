@@ -1,7 +1,7 @@
 # 📘 **Rethinking Node Scaling in Amazon EKS with Karpenter | EKS Crash Course (Chapter 4)**
 
 ### 📖 Article Link
-Read the full article on Medium: [Build an Amazon EKS Cluster with Terraform | EKS Crash Course (Chapter 4)](<>)
+Read the full article on Medium: [Build an Amazon EKS Cluster with Terraform | EKS Crash Course (Chapter 4)](<https://medium.com/towards-aws/rethinking-node-scaling-in-amazon-eks-with-karpenter-eks-crash-course-chapter-4-f482bde62def>)
 
 
 ### 📋 Code Structure
