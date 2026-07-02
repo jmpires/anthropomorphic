@@ -70,7 +70,7 @@ crashCourseEKS/
 │   │       ├── variables.tf        # Declares and validates input variables for AWS, EKS, node groups, and VPC configuration.
 │   │       └── vpc.tf              # Creates the VPC, subnets, and networking required for the EKS cluster.                   
 │   │
-│   ├── chapter5 ⚠️  WIP ⚠️ 
+│   ├── chapter5 ⚠️ WIP ⚠️ 
 │
 └── README.md                       # Project overview, prerequisites, and quick start instructions.
 ```
