@@ -17,5 +17,6 @@ Anthropomorphic/
         |-- Build an Amazon EKS Cluster with Terraform | EKS Crash Course (Chapter 2).md
         |-- Build an Amazon EKS Cluster with Terraform | EKS Crash Course (Chapter 3).md
         |-- Build an Amazon EKS Cluster with Terraform | EKS Crash Course (Chapter 4).md
+        |-- Multipass Foundations: A Hands-On Guide to Lightweight Ubuntu VMs.md
         └── README.md       # Index of all readings - You are here 🚀
 ```

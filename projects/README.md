@@ -15,6 +15,7 @@ projects/
 ├── crashCourseEKS/             # Terraform code for a production-ready EKS cluster, guiding toward an enterprise-grade approach.
 ├── deployK8Application/        # Setting Up a Kubernetes application using Terraform, EKS Cluster, GitHub and Jenkins.
 ├── elkStackEc2/                # Deploying ELK Stack using Self-Managed Kubernetes Cluster on AWS EC2.
+├── multipassFoundations/       # Creating and Managing Lightweight Ubuntu Virtual Machines for Local Infrastructure and Development.
 ├── opltgStackEKS               # ⚠️ WIP ⚠️ Builds an enterprise-grade observability stack on Amazon EKS using OpenTelemetry, Prometheus, Loki, Tempo, and Grafana.
 ├── references/                 # Contains references and recommended further reading.
 ├── tools/                      # Contains shared automation and utility scripts used across all projects.
